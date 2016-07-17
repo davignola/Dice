@@ -1,36 +1,59 @@
 ﻿@{
     ViewBag.Title = "Dice";
 }
-<div id="wrapper">
-    <div style="float: left;">
-        <div class="ui-grid-b">
-            <div class="ui-block-a"><div><button class="ui-btn ui-mini ui-icon-plus ui-btn-icon-left">50</button></div></div>
-            <div class="ui-block-b"><div><button class="ui-btn ui-mini ui-icon-plus ui-btn-icon-left">100</button></div></div>
-            <div class="ui-block-c"><div><button class="ui-btn ui-mini ui-icon-plus ui-btn-icon-left">250</button></div></div>
+<div class="row">
+    <div class="col-md-4">
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default btn-block">
+                    <span class="glyphicon glyphicon-plus-sign"></span>50
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default btn-block">
+                    <span class="glyphicon glyphicon-plus-sign"></span>100
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-block btn-default">
+                    <span class="glyphicon glyphicon-plus-sign"></span>250
+                </button>
+            </div>
         </div>
-        <div class="ui-grid-b">
-            <div class="ui-block-a"><div><button class="ui-btn ui-mini ui-icon-plus ui-btn-icon-left">500</button></div></div>
-            <div class="ui-block-b"><div><button class="ui-btn ui-mini ui-icon-plus ui-btn-icon-left">1000</button></div></div>
-            <div class="ui-block-c"><div><button class="ui-btn ui-mini ui-icon-plus ui-btn-icon-left">3000</button></div></div>
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default btn-block">
+                    <span class="glyphicon glyphicon-plus-sign"></span>500
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default btn-block">
+                    <span class="glyphicon glyphicon-plus-sign"></span>1000
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default btn-block">
+                    <span class="glyphicon glyphicon-plus-sign"></span>3000
+                </button>
+            </div>
         </div>
-        <div class="ui-grid-solo">
-            <div class="ui-block-a"><div><button class="ui-btn ui-mini ui-icon-plus ui-btn-icon-left">Score Précedent</button></div></div>
-        </div>
-        <div class="ui-grid-solo">
-            <div class="ui-block-a"><div><button class="ui-btn ui-mini ui-icon-delete ui-btn-icon-left">Clear</button></div></div>
-        </div>
-        <div class="ui-grid-solo">
-            <div class="ui-block-a"><div><button class="ui-btn ui-mini ui-icon-arrow-r ui-btn-icon-right">Joueur suivant</button></div></div>
+        <button type="button" class="btn btn-default btn-block">
+            <span class="glyphicon glyphicon-plus-sign"></span>Score Précédent
+        </button>
+        <button type="button" class="btn btn-block btn-danger">
+            <span class="glyphicon glyphicon-remove-sign"></span>Clear
+        </button>
+        <button type="button" class="btn btn-block btn-lg btn-primary">
+            <span class="glyphicon glyphicon-ok-sign"></span>Joueur Suivant
+        </button>
+    </div>
+    <button type="button" class="btn btn-success pull-right" click="dice.manager.addPlayer()">
+        <span class="glyphicon glyphicon-plus-sign"></span>Ajouter Joueur
+    </button>
+    <div class="col-md-8">
+        <div class="row">
+            <div id="dice-scoreboard">
+            </div>
         </div>
     </div>
-
-</div>
-<div class="ui-corner-all">
-    <div>
-        <h3>Pointages</h3>
-    </div>
-    <div>
-        Stuff
-    </div>
-</div>
 </div>
