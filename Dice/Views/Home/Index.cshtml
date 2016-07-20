@@ -1,43 +1,45 @@
 ﻿<div class="row low-pad" id="dice-main">
-    <div class="col-md-10">
-        <div class="row low-pad" id="dice-scoreboard">
 
-        </div>
-    </div>
-    <div class="col-md-2">
+    <div class="col-md-3 col-sm-4 col-xs-4">
         <div class="btn-group btn-group-justified">
-            <a class="btn btn-default">
-                <i class="glyphicon glyphicon-plus-sign"></i> 50
+            <a class="btn btn-default" onclick="dice.ui.accumulate(50)">
+                <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 50
             </a>
-            <a class="btn btn-default">
-                <i class="glyphicon glyphicon-plus-sign"></i> 100
+            <a class="btn btn-default" onclick="dice.ui.accumulate(100)">
+                <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 100
             </a>
-            <a class="btn btn-default">
-                <i class="glyphicon glyphicon-plus-sign"></i> 250
+            <a class="btn btn-default" onclick="dice.ui.accumulate(250)">
+                <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 250
             </a>
         </div>
         <div class="btn-group btn-group-justified">
-            <a class="btn btn-default">
-                <i class="glyphicon glyphicon-plus-sign"></i> 500
+            <a class="btn btn-default" onclick="dice.ui.accumulate(500)">
+                <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 500
             </a>
-            <a class="btn btn-default">
-                <i class="glyphicon glyphicon-plus-sign"></i> 1000
+            <a class="btn btn-default" onclick="dice.ui.accumulate(1000)">
+                <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 1000
             </a>
-            <a class="btn btn-default">
-                <i class="glyphicon glyphicon-plus-sign"></i> 3000
+            <a class="btn btn-default" onclick="dice.ui.accumulate(3000)">
+                <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 3000
             </a>
         </div>
-        <a class="btn btn-default btn-block">
-            <i class="glyphicon glyphicon-plus-sign"></i> Score Précédent
+        <a class="btn btn-default btn-block" onclick="dice.manager.accumulateLast()">
+            <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> Score Précédent
         </a>
-        <a class="btn btn-block btn-danger">
-            <i class="glyphicon glyphicon-remove-sign"></i> Clear
+        <a class="btn btn-block btn-danger" onclick="dice.ui.setAccumulated(0)">
+            <i class="glyphicon glyphicon-remove-sign hidden-xs"></i> Clear
         </a>
-        <div class="divider"></div>
-        Points : <input class="input-sm" />
-        <div class="divider"></div>
+
+        <strong>Points : </strong><input type="number" id="dice-point-accumulator" min="0" max="20000" class="input-lg" style="margin: 15px 0 15px 0;" />
+
         <a class="btn btn-lg btn-primary btn-block" id="dice-startbutton" onclick="dice.manager.nextPlayer()">
-            <i class="glyphicon glyphicon-ok-sign"></i>Joueur Suivant
+            <i class="glyphicon glyphicon-ok-sign hidden-xs"></i>Joueur Suivant
         </a>
+        <!--<a class="btn btn-lg btn-primary btn-block hidden-xs" onclick="dice.manager.nextPlayerAccumulateLast()">
+            <i class="glyphicon glyphicon-ok-sign"></i>Joueur Suivant + Précédent
+        </a>-->
+    </div>
+    <div class="col-md-9 col-sm-8 col-xs-8">
+        <div class="row low-pad " id="dice-scoreboard"></div>
     </div>
 </div>

@@ -10,7 +10,8 @@ dice.component.Player = function(name, index) {
     this.name = name;
     this.index = index;
     this.points = [];
-    this.totalPoints = function(){return this.points.reduce(function(a, b) { return a + b; }, 0);};
+    this.totalPoints = function () { return this.points.reduce(function (a, b) { return a + b; }, 0); };
+    this.canAccumulateLast = false;
 
 
     this.addPoint = function(point) {
@@ -19,5 +20,10 @@ dice.component.Player = function(name, index) {
         if (point) {
             this.points.push(point);
         }
+    }
+
+    this.reset = function() {
+        self.points = [];
+        self.canAccumulateLast = false;
     }
 }

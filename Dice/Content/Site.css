@@ -1,25 +1,27 @@
 ﻿#dice-main {
-    padding-left: 40px;
+    padding-right: 40px;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
+
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-  min-height: 100%;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    min-height: 100%;
 }
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    background-color: #f5f5f5;
 }
 
 
@@ -28,73 +30,81 @@ body {
 /* Not required for template or sticky footer method. */
 
 .container {
-  width: auto;
-  max-width: 680px;
-  padding: 0 15px;
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
 }
-.container .text-muted {
-  margin: 20px 0;
-}
+
+    .container .text-muted {
+        margin: 20px 0;
+    }
 
 .row.no-pad {
-  margin-right:0;
-  margin-left:0;
-}
-.row.no-pad > [class*='col-'] {
-  padding-right:0;
-  padding-left:0;
+    margin-right: 0;
+    margin-left: 0;
 }
 
+    .row.no-pad > [class*='col-'] {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
 .row.low-pad {
-  margin-right:5px;
-  margin-left:5px;
+    margin-right: 5px;
+    margin-left: 5px;
 }
-.row.low-pad > [class*='col-'] {
-  padding-right:5px;
-  padding-left:5px;
-}
+
+    .row.low-pad > [class*='col-'] {
+        padding-right: 5px;
+        padding-left: 5px;
+    }
 
 /*Offcanvas*/
 
 body {
-  padding: 50px 0 0 0;
+    padding: 58px 0 0 0;
 }
 
 .navmenu {
-  padding-top: 50px;
+    padding-top: 58px;
 }
 
 .navbar {
-  display: block;
-  text-align: center;
+    display: block;
+    text-align: center;
 }
+
 .navbar-brand {
-  display: inline-block;
-  float: none;
+    display: inline-block;
+    float: none;
 }
+
 .navbar-toggle {
-  position: absolute;
-  float: left;
-  margin-left: 15px;
+    float: right;
+    margin-left: 15px;
 }
 
 .container {
-  max-width: 100%;
+    max-width: 100%;
 }
 
 @media (min-width: 1px) {
-  .navbar-toggle {
-    display: block !important;
-  }
+    .navbar-toggle {
+        display: block !important;
+    }
 }
 
 @media (min-width: 992px) {
-  body {
-    padding: 0;
-  }
-  .navbar {
-    right: auto;
-    background: none;
-    border: none;
-  }
+    body {
+        padding: 0;
+    }
+
+    .navbar {
+        left: auto;
+        background: none;
+        border: none;
+        -webkit-box-shadow: none;
+        /* ReSharper disable once CssBrowserCompatibility */
+        box-shadow: none;
+    }
 }

@@ -14,6 +14,7 @@ dice.ui = new function () {
         playerPanelFooterAttribute: "dice-player-total",
         playerScoreBoardAttribute: "dice-player-scoreboard",
         playerPointsRoundAttribute: "dice-score-round",
+        playerPointsAccumulatorId: "dice-point-accumulator",
         previousColumnSize: 0
     };
 
@@ -41,7 +42,8 @@ dice.ui = new function () {
                                                .attr(diceView.playerScoreBoardAttribute, playerObject.index)))
             // Total in footer
             .append($("<div>").addClass("panel-footer")
-                                .append($("<h3>")
+                                .append($("<h5>")
+                                .addClass("")
                                 .attr(diceView.playerPanelFooterAttribute, playerObject.index)
                                 .text("Total: 0")));
         // Adding to containers
@@ -80,10 +82,24 @@ dice.ui = new function () {
         currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
     }
 
-    this.resetAll = function () {
+    this.reset = function () {
         $("[" + diceView.playerScoreBoardAttribute + "]").html("");
         $("[" + diceView.playerPanelFooterAttribute + "]").text("Total: 0");
         self.setCurentPlayer(0);
+    }
+
+    this.accumulate = function (points) {
+        var accumulator = $("#" + diceView.playerPointsAccumulatorId);
+        var currentValue = self.getAccumulated(accumulator);
+        accumulator.val(currentValue + points);
+    }
+
+    this.getAccumulated = function (selector) {
+        var accumulator = selector || $("#" + diceView.playerPointsAccumulatorId);
+        return Number(accumulator.val()) || 0;
+    }
+    this.setAccumulated = function (value) {
+        return $("#" + diceView.playerPointsAccumulatorId).val(value || 0);
     }
 
 }
