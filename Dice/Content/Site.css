@@ -1,4 +1,8 @@
-﻿/* Sticky footer styles
+﻿#dice-main {
+    padding-left: 40px;
+}
+
+/* Sticky footer styles
 -------------------------------------------------- */
 html {
   position: relative;
@@ -7,6 +11,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  min-height: 100%;
 }
 .footer {
   position: absolute;
@@ -47,4 +52,49 @@ body {
 .row.low-pad > [class*='col-'] {
   padding-right:5px;
   padding-left:5px;
+}
+
+/*Offcanvas*/
+
+body {
+  padding: 50px 0 0 0;
+}
+
+.navmenu {
+  padding-top: 50px;
+}
+
+.navbar {
+  display: block;
+  text-align: center;
+}
+.navbar-brand {
+  display: inline-block;
+  float: none;
+}
+.navbar-toggle {
+  position: absolute;
+  float: left;
+  margin-left: 15px;
+}
+
+.container {
+  max-width: 100%;
+}
+
+@media (min-width: 1px) {
+  .navbar-toggle {
+    display: block !important;
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    padding: 0;
+  }
+  .navbar {
+    right: auto;
+    background: none;
+    border: none;
+  }
 }

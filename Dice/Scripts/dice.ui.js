@@ -11,8 +11,9 @@ dice.ui = new function () {
         playerColumnAttribute: "data-player-container",
         playerPanelAttribute: "data-player-panel",
         playerPanelTitleBaseId: "dice-player-name-",
-        playerPanelFooterBaseId: "dice-player-total-",
-        playerScoreBoardBaseId: "dice-player-scoreboard-",
+        playerPanelFooterAttribute: "dice-player-total",
+        playerScoreBoardAttribute: "dice-player-scoreboard",
+        playerPointsRoundAttribute: "dice-score-round",
         previousColumnSize: 0
     };
 
@@ -36,11 +37,12 @@ dice.ui = new function () {
                                              .text(playerObject.name)))
             // Adding body (scoreboard)
             .append($("<div>").addClass("panel-body")
-                            .attr(diceView.playerScoreBoardBaseId + playerObject.index))
+                              .append($("<ul>").addClass("list-group")
+                                               .attr(diceView.playerScoreBoardAttribute, playerObject.index)))
             // Total in footer
             .append($("<div>").addClass("panel-footer")
                                 .append($("<h3>")
-                                .attr("id", diceView.playerPanelFooterBaseId + playerObject.index)
+                                .attr(diceView.playerPanelFooterAttribute, playerObject.index)
                                 .text("Total: 0")));
         // Adding to containers
         playerContainer.append(playerPanel);
@@ -68,4 +70,20 @@ dice.ui = new function () {
             .removeClass("panel-default")
             .addClass("panel-primary");
     }
+
+    this.addPoint = function (playerIndex, roundNumber, points, totalPoints) {
+        var currentPanel = $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]");
+        currentPanel.find("[" + diceView.playerScoreBoardAttribute + "]")
+            .append($("<li>").addClass("list-group-item")
+                             .attr(diceView.playerPointsRoundAttribute, roundNumber)
+                             .text(points));
+        currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
+    }
+
+    this.resetAll = function () {
+        $("[" + diceView.playerScoreBoardAttribute + "]").html("");
+        $("[" + diceView.playerPanelFooterAttribute + "]").text("Total: 0");
+        self.setCurentPlayer(0);
+    }
+
 }

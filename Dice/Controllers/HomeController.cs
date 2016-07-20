@@ -10,6 +10,8 @@ namespace Dice.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.AppName = "Dice !";
+            ViewBag.Title = "Dice Manager";
             return View("Index");
         }
     }

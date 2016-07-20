@@ -1,45 +1,43 @@
-﻿@{ViewBag.Title = "Dice";}
-<a class="btn btn-success pull-right" onclick="dice.manager.addPlayer()">
-    <span class="glyphicon glyphicon-plus-sign"></span> Ajouter Joueur
-</a>
-<div class="row low-pad">
-    <div class="col-md-2">
-        <div class="btn-group btn-group-justified">
-            <a class="btn btn-default">
-                <span class="glyphicon glyphicon-plus-sign"></span> 50
-            </a>
-            <a class="btn btn-default">
-                <span class="glyphicon glyphicon-plus-sign"></span> 100
-            </a>
-            <a class="btn btn-default">
-                <span class="glyphicon glyphicon-plus-sign"></span> 250
-            </a>
-        </div>
-        <div class="btn-group btn-group-justified">
-            <a class="btn btn-default">
-                <span class="glyphicon glyphicon-plus-sign"></span> 500
-            </a>
-            <a class="btn btn-default">
-                <span class="glyphicon glyphicon-plus-sign"></span> 1000
-            </a>
-            <a class="btn btn-default">
-                <span class="glyphicon glyphicon-plus-sign"></span> 3000
-            </a>
-        </div>
-        <a class="btn btn-default btn-block">
-            <span class="glyphicon glyphicon-plus-sign"></span> Score Précédent
-        </a>
-        <a class="btn btn-block btn-danger">
-            <span class="glyphicon glyphicon-remove-sign"></span> Clear
-        </a>
-        <span>Points : </span><input class="input-sm help-block"/>
-        <a class="btn btn-block btn-lg btn-primary" id="dice-startbutton" onclick="dice.manager.nextPlayer()">
-            <span class="glyphicon glyphicon-ok-sign"></span> Joueur Suivant
-        </a>
-    </div>
+﻿<div class="row low-pad" id="dice-main">
     <div class="col-md-10">
         <div class="row low-pad" id="dice-scoreboard">
 
         </div>
+    </div>
+    <div class="col-md-2">
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-default">
+                <i class="glyphicon glyphicon-plus-sign"></i> 50
+            </a>
+            <a class="btn btn-default">
+                <i class="glyphicon glyphicon-plus-sign"></i> 100
+            </a>
+            <a class="btn btn-default">
+                <i class="glyphicon glyphicon-plus-sign"></i> 250
+            </a>
+        </div>
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-default">
+                <i class="glyphicon glyphicon-plus-sign"></i> 500
+            </a>
+            <a class="btn btn-default">
+                <i class="glyphicon glyphicon-plus-sign"></i> 1000
+            </a>
+            <a class="btn btn-default">
+                <i class="glyphicon glyphicon-plus-sign"></i> 3000
+            </a>
+        </div>
+        <a class="btn btn-default btn-block">
+            <i class="glyphicon glyphicon-plus-sign"></i> Score Précédent
+        </a>
+        <a class="btn btn-block btn-danger">
+            <i class="glyphicon glyphicon-remove-sign"></i> Clear
+        </a>
+        <div class="divider"></div>
+        Points : <input class="input-sm" />
+        <div class="divider"></div>
+        <a class="btn btn-lg btn-primary btn-block" id="dice-startbutton" onclick="dice.manager.nextPlayer()">
+            <i class="glyphicon glyphicon-ok-sign"></i>Joueur Suivant
+        </a>
     </div>
 </div>

@@ -12,32 +12,22 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="page-header">
-            <h1>Dice !</h1>
-        </div>
-        @RenderBody()
-
+    <nav class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+        <a class="navmenu-brand visible-md visible-lg" href="#">@ViewBag.AppName</a>
+        <a class="btn btn-success btn-block" onclick="dice.manager.addPlayer()" href="#">
+            <span class="glyphicon glyphicon-plus-sign"></span> Ajouter Joueur
+        </a>
+    </nav>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <a class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+            <i class="glyphicon glyphicon-menu-hamburger"></i>
+        </a>
     </div>
+    @RenderBody()
     <footer class="footer">
-        <div class="container" >
-            <p class="text-muted">&copy; @DateTime.Now.Year - Davignola</p>
+        <div class="container">
+            <p class="text-muted">@ViewBag.AppName &copy; @DateTime.Now.Year - Davignola</p>
         </div>
     </footer>
-    <script type="text/javascript">
-        (function () {
-            'use strict';
-
-            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
-                var msViewportStyle = document.createElement('style');
-                msViewportStyle.appendChild(
-                    document.createTextNode('@@-ms-viewport{width:auto!important}'
-                    )
-                );
-                document.querySelector('head').appendChild(msViewportStyle);
-            }
-
-        })();
-    </script>
 </body>
 </html>
