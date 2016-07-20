@@ -17,8 +17,11 @@
         <a class="btn btn-success btn-block" onclick="dice.manager.addPlayer()" href="#">
             <span class="glyphicon glyphicon-plus"></span> Ajouter Joueur
         </a>
+        <a class="btn btn-warning btn-block" onclick="dice.manager.cancelLastMove()" href="#">
+            <span class="glyphicon glyphicon-backward"></span> Annuler Dernier
+        </a>
         <a class="btn btn-danger btn-block" onclick="dice.manager.reset()" href="#">
-            <span class="glyphicon glyphicon-plus"></span> Ajouter Joueur
+            <span class="glyphicon glyphicon-remove"></span> Reset
         </a>
     </nav>
     <div class="navbar navbar-default navbar-fixed-top">
@@ -27,6 +30,7 @@
         </a>
     </div>
     @RenderBody()
+
     <footer class="footer">
         <div class="container">
             <p class="text-muted pull-right">@ViewBag.AppName &copy; @DateTime.Now.Year - Davignola</p>

@@ -15,8 +15,18 @@ dice.ui = new function () {
         playerScoreBoardAttribute: "dice-player-scoreboard",
         playerPointsRoundAttribute: "dice-score-round",
         playerPointsAccumulatorId: "dice-point-accumulator",
+        alertBaseId: "dice-alert-",
+        alertCount: 0,
+        alertDelay: 3000,
         previousColumnSize: 0
     };
+
+    this.alertSeverity = {
+        success: "alert-success",
+        warning: "alert-warning",
+        info: "alert-info",
+        danger: "alert-danger"
+    }
 
     this.addPlayerContainer = function (playerObject) {
         /// <summary>Add the ui column player container</summary>
@@ -82,6 +92,13 @@ dice.ui = new function () {
         currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
     }
 
+    this.removePoints = function (playerIndex, roundNumber, totalPoints) {
+        var currentPanel = $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]");
+        currentPanel.find("[" + diceView.playerPointsRoundAttribute + "=" + roundNumber + "]")
+                    .remove();
+        currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
+    }
+
     this.reset = function () {
         $("[" + diceView.playerScoreBoardAttribute + "]").html("");
         $("[" + diceView.playerPanelFooterAttribute + "]").text("Total: 0");
@@ -100,6 +117,20 @@ dice.ui = new function () {
     }
     this.setAccumulated = function (value) {
         return $("#" + diceView.playerPointsAccumulatorId).val(value || 0);
+    }
+
+    this.addAlert = function (message, severity) {
+        var count = diceView.alertCount++;
+        $("body").append($("<div>").addClass("alert fade in alert-fixed-top alert-dismissible " + severity)
+                                   .attr("id", diceView.alertBaseId + count)
+                                   .text(message)
+                                   /*.append($("<a>").attr("href", "#")
+                                                   .attr("data-dismiss", "alert")
+                                                   .attr("aria-label", "close")
+                                                   .addClass("close")
+                                                   .html("&times;"))*/);
+        //Auto Close
+        setTimeout(function () { $("#" + diceView.alertBaseId + count).alert("close"); }, diceView.alertDelay);
     }
 
 }

@@ -22,6 +22,13 @@ dice.component.Player = function(name, index) {
         }
     }
 
+    this.removeLastPoints = function() {
+        /// <summary>Remove last point entry</summary>
+        if (self.points.length > 0) {
+            self.points.pop();
+        }
+    }
+
     this.reset = function() {
         self.points = [];
         self.canAccumulateLast = false;

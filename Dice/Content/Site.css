@@ -88,6 +88,10 @@ body {
     max-width: 100%;
 }
 
+.alert-fixed-bottom {
+    margin-bottom: 60px;
+}
+
 @media (min-width: 1px) {
     .navbar-toggle {
         display: block !important;
