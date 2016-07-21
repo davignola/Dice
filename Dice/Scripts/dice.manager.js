@@ -13,8 +13,7 @@ dice.manager = new function () {
     this.pointsToStart = 500;
     this.pointsToAccumulateLast = 5000;
     this.lastPoints = 0;
-
-
+    
     this.addPlayer = function (name) {
         var newIndex = self.getMaxIndex() + 1;
         name = name || "Joueur " + (newIndex + 1);
@@ -25,12 +24,12 @@ dice.manager = new function () {
             self.currentPlayer = newPlayer;
             dice.ui.setCurentPlayer(newIndex);
         }
-    }
+    };
 
     this.getMaxIndex = function () {
         var result = Math.max.apply(Math, self.players.map(function (o) { return o.index; }));
         return result === -Infinity ? -1 : result;
-    }
+    };
 
     this.nextPlayer = function () {
         // Init
@@ -86,7 +85,7 @@ dice.manager = new function () {
         } else {
             dice.ui.addAlert("Ajoutez des joueurs pour commencer", dice.ui.alertSeverity.info);
         }
-    }
+    };
 
     this.getNextIndex = function () {
         var nextIndex = (self.currentPlayer ? self.currentPlayer.index + 1 : 0);
@@ -94,7 +93,7 @@ dice.manager = new function () {
             nextIndex = 0;
         }
         return nextIndex;
-    }
+    };
 
     this.getPreviousIndex = function () {
         var prevIndex = (self.currentPlayer ? self.currentPlayer.index - 1 : self.getMaxIndex());
@@ -102,7 +101,7 @@ dice.manager = new function () {
             prevIndex = self.getMaxIndex();
         }
         return prevIndex;
-    }
+    };
 
     this.accumulateLast = function () {
         if (!self.currentPlayer) {
@@ -113,12 +112,12 @@ dice.manager = new function () {
         } else {
             dice.ui.addAlert("Le joueur doit avoir au moins " + self.pointsToAccumulateLast + " pour cumuler les points précédents", dice.ui.alertSeverity.warning);
         }
-    }
+    };
 
     this.nextPlayerAccumulateLast = function () {
         self.nextPlayer();
         self.accumulateLast();
-    }
+    };
 
     this.cancelLastMove = function () {
         // Has a game started ?
@@ -144,7 +143,7 @@ dice.manager = new function () {
         self.currentPlayer.removeLastPoints();
         // Remove points from ui
         dice.ui.removePoints(previousIndex, self.roundCount, self.currentPlayer.totalPoints());
-    }
+    };
 
     this.reset = function () {
         for (var i in self.players) {
@@ -157,5 +156,18 @@ dice.manager = new function () {
         self.lastPoints = 0;
         self.currentPlayer = self.players[0];
         self.roundCount = 0;
-    }
-}
+    };
+
+    this.newGame = function () {
+        // Apply rules
+        var params = dice.ui.getParams();
+        self.targetScore = params.target;
+        self.pointsToStart = params.startup;
+        self.pointsToAccumulateLast = params.cumul;
+        // Flush players
+        self.players = [];
+        dice.ui.clearPlayerContainer();
+        // Reset the rest
+        self.reset();
+    };
+};

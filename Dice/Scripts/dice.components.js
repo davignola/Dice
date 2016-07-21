@@ -10,7 +10,7 @@ dice.component.Player = function(name, index) {
     this.name = name;
     this.index = index;
     this.points = [];
-    this.totalPoints = function () { return this.points.reduce(function (a, b) { return a + b; }, 0); };
+    this.totalPoints = function() { return this.points.reduce(function(a, b) { return a + b; }, 0); };
     this.canAccumulateLast = false;
 
 
@@ -20,17 +20,17 @@ dice.component.Player = function(name, index) {
         if (point) {
             this.points.push(point);
         }
-    }
+    };
 
     this.removeLastPoints = function() {
         /// <summary>Remove last point entry</summary>
         if (self.points.length > 0) {
             self.points.pop();
         }
-    }
+    };
 
     this.reset = function() {
         self.points = [];
         self.canAccumulateLast = false;
-    }
-}
+    };
+};

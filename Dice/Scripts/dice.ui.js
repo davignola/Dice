@@ -16,6 +16,9 @@ dice.ui = new function () {
         playerPointsRoundAttribute: "dice-score-round",
         playerPointsAccumulatorId: "dice-point-accumulator",
         alertBaseId: "dice-alert-",
+        paramTargetId: "dice-param-target",
+        paramStartupId: "dice-param-startup",
+        paramcumulId: "dice-param-cumul",
         alertCount: 0,
         alertDelay: 3000,
         previousColumnSize: 0
@@ -26,7 +29,7 @@ dice.ui = new function () {
         warning: "alert-warning",
         info: "alert-info",
         danger: "alert-danger"
-    }
+    };
 
     this.addPlayerContainer = function (playerObject) {
         /// <summary>Add the ui column player container</summary>
@@ -42,26 +45,26 @@ dice.ui = new function () {
             .addClass("panel panel-default")
             .attr(diceView.playerPanelAttribute, playerObject.index)
             .append($("<div>").addClass("panel-heading")
-            // Adding title
-                            .append($("<h3>").addClass("panel-title")
-                                             .attr("id", diceView.playerPanelTitleBaseId + playerObject.index)
-                                             .text(playerObject.name)))
+                // Adding title
+                .append($("<h3>").addClass("panel-title")
+                    .attr("id", diceView.playerPanelTitleBaseId + playerObject.index)
+                    .text(playerObject.name)))
             // Adding body (scoreboard)
             .append($("<div>").addClass("panel-body")
-                              .append($("<ul>").addClass("list-group")
-                                               .attr(diceView.playerScoreBoardAttribute, playerObject.index)))
+                .append($("<ul>").addClass("list-group")
+                    .attr(diceView.playerScoreBoardAttribute, playerObject.index)))
             // Total in footer
             .append($("<div>").addClass("panel-footer")
-                                .append($("<h5>")
-                                .addClass("")
-                                .attr(diceView.playerPanelFooterAttribute, playerObject.index)
-                                .text("Total: 0")));
+                .append($("<h5>")
+                    .addClass("")
+                    .attr(diceView.playerPanelFooterAttribute, playerObject.index)
+                    .text("Total: 0")));
         // Adding to containers
         playerContainer.append(playerPanel);
         scoreboard.append(playerContainer);
         // update columns classes
         self.setColumnClass();
-    }
+    };
 
     this.setColumnClass = function () {
         var playerCount = dice.manager.players.length;
@@ -72,7 +75,7 @@ dice.ui = new function () {
         var columnSize = Math.max(Math.floor(diceView.playerSlots / playerCount), 1);
         containers.addClass("col-md-" + columnSize);
         diceView.previousColumnSize = columnSize;
-    }
+    };
 
     this.setCurentPlayer = function (playerIndex) {
         $("div[" + diceView.playerPanelAttribute + "]")
@@ -81,56 +84,68 @@ dice.ui = new function () {
         $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]")
             .removeClass("panel-default")
             .addClass("panel-primary");
-    }
+    };
 
     this.addPoint = function (playerIndex, roundNumber, points, totalPoints) {
         var currentPanel = $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]");
         currentPanel.find("[" + diceView.playerScoreBoardAttribute + "]")
             .append($("<li>").addClass("list-group-item")
-                             .attr(diceView.playerPointsRoundAttribute, roundNumber)
-                             .text(points));
+                .attr(diceView.playerPointsRoundAttribute, roundNumber)
+                .text(points));
         currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
-    }
+    };
 
     this.removePoints = function (playerIndex, roundNumber, totalPoints) {
         var currentPanel = $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]");
         currentPanel.find("[" + diceView.playerPointsRoundAttribute + "=" + roundNumber + "]")
-                    .remove();
+            .remove();
         currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
-    }
+    };
 
     this.reset = function () {
         $("[" + diceView.playerScoreBoardAttribute + "]").html("");
         $("[" + diceView.playerPanelFooterAttribute + "]").text("Total: 0");
         self.setCurentPlayer(0);
-    }
+    };
 
     this.accumulate = function (points) {
         var accumulator = $("#" + diceView.playerPointsAccumulatorId);
         var currentValue = self.getAccumulated(accumulator);
         accumulator.val(currentValue + points);
-    }
+    };
 
     this.getAccumulated = function (selector) {
         var accumulator = selector || $("#" + diceView.playerPointsAccumulatorId);
         return Number(accumulator.val()) || 0;
-    }
+    };
     this.setAccumulated = function (value) {
         return $("#" + diceView.playerPointsAccumulatorId).val(value || 0);
-    }
+    };
 
     this.addAlert = function (message, severity) {
         var count = diceView.alertCount++;
         $("body").append($("<div>").addClass("alert fade in alert-fixed-top alert-dismissible " + severity)
-                                   .attr("id", diceView.alertBaseId + count)
-                                   .text(message)
-                                   /*.append($("<a>").attr("href", "#")
-                                                   .attr("data-dismiss", "alert")
-                                                   .attr("aria-label", "close")
-                                                   .addClass("close")
-                                                   .html("&times;"))*/);
+            .attr("id", diceView.alertBaseId + count)
+            .text(message)
+            /*.append($("<a>").attr("href", "#")
+                            .attr("data-dismiss", "alert")
+                            .attr("aria-label", "close")
+                            .addClass("close")
+                            .html("&times;"))*/);
         //Auto Close
         setTimeout(function () { $("#" + diceView.alertBaseId + count).alert("close"); }, diceView.alertDelay);
+    };
+
+    this.getParams = function () {
+        return {
+            target: Number($("#" + diceView.paramTargetId).val()) || 20000,
+            startup: Number($("#" + diceView.paramStartupId).val()) || 500,
+            cumul: Number($("#" + diceView.paramcumulId).val()) || 5000
+        };
     }
 
-}
+    this.clearPlayerContainer = function () {
+        $("#" + diceView.playerContainerId).html("");
+    };
+
+};
