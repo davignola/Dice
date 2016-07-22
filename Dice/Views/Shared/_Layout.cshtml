@@ -12,52 +12,52 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <nav class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
-            <a class="navmenu-brand visible-md visible-lg" href="#">@ViewBag.AppName</a>
-            <h3>Partie courante</h3>
-            <a class="btn btn-success btn-block btn-lg" onclick="dice.manager.addPlayer()" href="#">
-                <span class="glyphicon glyphicon-plus"></span> Ajouter Joueur
-            </a>
-            <a class="btn btn-warning btn-block" onclick="dice.manager.cancelLastMove()" href="#">
-                <span class="glyphicon glyphicon-backward"></span> Annuler Dernier
-            </a>
-            <br />
-            <a class="btn btn-danger btn-block" onclick="dice.manager.reset()" href="#">
-                <span class="glyphicon glyphicon-repeat"></span> Remise à zéro
-            </a>
-            <hr />
-            <h3>Règles personalisées</h3>
-            Points cible :
-            <br />
-            <input type="number" class="input-lg" min="0" value="20000" id="dice-param-target" />
-            <br />
-            Points départ :
-            <br />
-            <input type="number" class="input-lg" min="0" value="500" id="dice-param-startup" />
-            <br />
-            Points cumul précédent :
-            <br />
-            <input type="number" class="input-lg" min="0" value="5000" id="dice-param-cumul" />
-            <br />
-            <br />
-            <a class="btn btn-info btn-block btn-lg" onclick="dice.manager.newGame()" href="#">
-                <span class="glyphicon glyphicon-play-circle"></span> Nouvelle partie
-            </a>
-            <hr />
-        </nav>
-        <div class="navbar navbar-default navbar-fixed-top">
-            <a class="navbar-toggle btn-default" data-toggle="offcanvas" data-target=".navmenu">
-                <i class="glyphicon glyphicon-menu-hamburger"></i>
-            </a>
-        </div>
-        @RenderBody()
-
-        <footer class="footer">
-            <div class="container">
-                <p class="text-muted pull-right">@ViewBag.AppName &copy; @DateTime.Now.Year - Davignola</p>
-            </div>
-        </footer>
+<div class="container-fluid">
+    <nav class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
+        <a class="navmenu-brand visible-md visible-lg" href="#">@ViewBag.AppName</a>
+        <h3>Partie courante</h3>
+        <a class="btn btn-success btn-block btn-lg" onclick="dice.manager.addPlayer()" href="#">
+            <span class="glyphicon glyphicon-plus"></span> Ajouter Joueur
+        </a>
+        <a class="btn btn-warning btn-block" onclick="dice.manager.cancelLastMove()" href="#">
+            <span class="glyphicon glyphicon-backward"></span> Annuler Dernier
+        </a>
+        <br/>
+        <a class="btn btn-danger btn-block" onclick="dice.manager.reset()" href="#">
+            <span class="glyphicon glyphicon-repeat"></span> Remise à zéro
+        </a>
+        <hr/>
+        <h3>Règles personalisées</h3>
+        Points cible :
+        <br/>
+        <input type="number" class="input-lg" min="0" value="20000" id="dice-param-target"/>
+        <br/>
+        Points départ :
+        <br/>
+        <input type="number" class="input-lg" min="0" value="500" id="dice-param-startup"/>
+        <br/>
+        Points cumul précédent :
+        <br/>
+        <input type="number" class="input-lg" min="0" value="5000" id="dice-param-cumul"/>
+        <br/>
+        <br/>
+        <a class="btn btn-info btn-block btn-lg" onclick="dice.manager.newGame()" href="#">
+            <span class="glyphicon glyphicon-play-circle"></span> Nouvelle partie
+        </a>
+        <hr/>
+    </nav>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <a class="navbar-toggle btn-default" data-toggle="offcanvas" data-target=".navmenu">
+            <i class="glyphicon glyphicon-menu-hamburger"></i>
+        </a>
     </div>
+    @RenderBody()
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted pull-right">@ViewBag.AppName &copy; @DateTime.Now.Year - Davignola</p>
+        </div>
+    </footer>
+</div>
 </body>
 </html>

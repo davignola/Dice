@@ -21,8 +21,12 @@ dice.ui = new function () {
         paramcumulId: "dice-param-cumul",
         alertCount: 0,
         alertDelay: 3000,
-        previousColumnSize: 0
-    };
+        previousColumnSize: 0,
+        minColSizeXs: 4,
+        minColSizeSm: 3,
+        minColSizeMd: 3,
+        minColSizeLg: 2
+};
 
     this.alertSeverity = {
         success: "alert-success",
@@ -50,7 +54,7 @@ dice.ui = new function () {
                     .attr("id", diceView.playerPanelTitleBaseId + playerObject.index)
                     .text(playerObject.name)))
             // Adding body (scoreboard)
-            .append($("<div>").addClass("panel-body")
+            .append($("<div>").addClass("panel-body low-pad")
                 .append($("<ul>").addClass("list-group")
                     .attr(diceView.playerScoreBoardAttribute, playerObject.index)))
             // Total in footer
@@ -69,11 +73,23 @@ dice.ui = new function () {
     this.setColumnClass = function () {
         var playerCount = dice.manager.players.length;
         var containers = $("#" + diceView.playerContainerId).find("div[" + diceView.playerColumnAttribute + "]");
+        var previousXs = Math.max(diceView.previousColumnSize, diceView.minColSizeXs);
+        var previousSm = Math.max(diceView.previousColumnSize, diceView.minColSizeSm);
+        var previousMd = Math.max(diceView.previousColumnSize, diceView.minColSizeMd);
         if (diceView.previousColumnSize > 0) {
-            containers.removeClass("col-md-" + diceView.previousColumnSize);
+            containers.removeClass("col-lg-" + diceView.previousColumnSize +
+                                   " col-xs-" + previousXs +
+                                   " col-sm-" + previousSm +
+                                   " col-md-" + previousMd);
         }
-        var columnSize = Math.max(Math.floor(diceView.playerSlots / playerCount), 1);
-        containers.addClass("col-md-" + columnSize);
+        var columnSize = Math.max(Math.floor(diceView.playerSlots / playerCount), diceView.minColSizeLg);
+        var columnSizeXs = Math.max(columnSize, diceView.minColSizeXs);
+        var columnSizeSm = Math.max(columnSize, diceView.minColSizeSm);
+        var columnSizeMd = Math.max(columnSize, diceView.minColSizeMd);
+        containers.addClass("col-lg-" + columnSize +
+                            " col-xs-" + columnSizeXs +
+                            " col-sm-" + columnSizeSm +
+                            " col-md-" + columnSizeMd);
         diceView.previousColumnSize = columnSize;
     };
 
@@ -89,7 +105,7 @@ dice.ui = new function () {
     this.addPoint = function (playerIndex, roundNumber, points, totalPoints) {
         var currentPanel = $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]");
         currentPanel.find("[" + diceView.playerScoreBoardAttribute + "]")
-            .append($("<li>").addClass("list-group-item")
+            .append($("<li>").addClass("list-group-item low-pad")
                 .attr(diceView.playerPointsRoundAttribute, roundNumber)
                 .text(points));
         currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
