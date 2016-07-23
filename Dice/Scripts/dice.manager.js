@@ -61,7 +61,8 @@ dice.manager = new function () {
             }
             // if target reached flag as a winner
             if (self.currentPlayer.totalPoints() === self.targetScore) {
-                //TODO: ui.setWiener !
+                // Add a legendary winning star
+                dice.ui.addStar(self.currentPlayer.index);
                 // flag last round if not allready done
                 if (self.lastRoundPlayerIndex === -1) {
                     self.lastRoundPlayerIndex = self.currentPlayer.index;
@@ -79,7 +80,6 @@ dice.manager = new function () {
             dice.ui.setCurentPlayer(nextIndex);
             // if the last round index is the nextr then game over confeties'n shitz
             if (nextIndex === self.lastRoundPlayerIndex) {
-                // Todo: win message
                 dice.ui.addAlert("Game Over !", dice.ui.alertSeverity.success);
             }
         } else {

@@ -12,52 +12,86 @@
 </head>
 
 <body>
-<div class="container-fluid">
-    <nav class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
-        <a class="navmenu-brand visible-md visible-lg" href="#">@ViewBag.AppName</a>
-        <h3>Partie courante</h3>
-        <a class="btn btn-success btn-block btn-lg" onclick="dice.manager.addPlayer()" href="#">
-            <span class="glyphicon glyphicon-plus"></span> Ajouter Joueur
-        </a>
-        <a class="btn btn-warning btn-block" onclick="dice.manager.cancelLastMove()" href="#">
-            <span class="glyphicon glyphicon-backward"></span> Annuler Dernier
-        </a>
-        <br/>
-        <a class="btn btn-danger btn-block" onclick="dice.manager.reset()" href="#">
-            <span class="glyphicon glyphicon-repeat"></span> Remise à zéro
-        </a>
-        <hr/>
-        <h3>Règles personalisées</h3>
-        Points cible :
-        <br/>
-        <input type="number" class="input-lg" min="0" value="20000" id="dice-param-target"/>
-        <br/>
-        Points départ :
-        <br/>
-        <input type="number" class="input-lg" min="0" value="500" id="dice-param-startup"/>
-        <br/>
-        Points cumul précédent :
-        <br/>
-        <input type="number" class="input-lg" min="0" value="5000" id="dice-param-cumul"/>
-        <br/>
-        <br/>
-        <a class="btn btn-info btn-block btn-lg" onclick="dice.manager.newGame()" href="#">
-            <span class="glyphicon glyphicon-play-circle"></span> Nouvelle partie
-        </a>
-        <hr/>
-    </nav>
-    <div class="navbar navbar-default navbar-fixed-top">
-        <a class="navbar-toggle btn-default" data-toggle="offcanvas" data-target=".navmenu">
-            <i class="glyphicon glyphicon-menu-hamburger"></i>
-        </a>
-    </div>
-    @RenderBody()
-
-    <footer class="footer">
-        <div class="container">
-            <p class="text-muted pull-right">@ViewBag.AppName &copy; @DateTime.Now.Year - Davignola</p>
+    <script>
+        $(document).ready(function () {
+            // focus and select rename input on show dialog
+            $("#" + dice.ui.diceView.renameId).on('shown.bs.modal', function () {
+                $("#" + dice.ui.diceView.renameInputId)
+                    .focus()
+                    .select();
+            });
+            var windowWidth = $(window).width();
+            if (windowWidth <= 768) //for smaller devices
+            {
+                $(".navmenu").find(".collapse").removeClass('in');
+            }
+        });
+    </script>
+    <div class="container-fluid">
+        <nav class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
+            <a class="navmenu-brand visible-md visible-lg" href="#">@ViewBag.AppName</a>
+            <hr />
+            <h3 data-toggle="collapse" data-target="#dice-game-controls">Partie courante</h3>
+            <div class="collapse in" id="dice-game-controls">
+                <a class="btn btn-success btn-block btn-lg" onclick="dice.manager.addPlayer()" href="#">
+                    <span class="glyphicon glyphicon-plus"></span> Ajouter Joueur
+                </a>
+                <a class="btn btn-warning btn-block" onclick="dice.manager.cancelLastMove()" href="#">
+                    <span class="glyphicon glyphicon-backward"></span> Annuler Dernier
+                </a>
+                <br />
+                <a class="btn btn-danger btn-block" onclick="dice.manager.reset()" href="#">
+                    <span class="glyphicon glyphicon-repeat"></span> Remise à zéro
+                </a>
+            </div>
+            <hr />
+            <h3 data-toggle="collapse" data-target="#dice-params">Règles personalisées</h3>
+            <div class="collapse in" id="dice-params">
+                Points cible :
+                <br />
+                <input type="number" class="input-lg" min="0" value="20000" id="dice-param-target" />
+                <br />
+                Points départ :
+                <br />
+                <input type="number" class="input-lg" min="0" value="500" id="dice-param-startup" />
+                <br />
+                Points cumul précédent :
+                <br />
+                <input type="number" class="input-lg" min="0" value="5000" id="dice-param-cumul" />
+                <br />
+                <br />
+                <a class="btn btn-info btn-block btn-lg" onclick="dice.manager.newGame()" href="#">
+                    <span class="glyphicon glyphicon-play-circle"></span> Nouvelle partie
+                </a>
+            </div>
+            <hr />
+        </nav>
+        <div class="navbar navbar-default navbar-fixed-top">
+            <a class="navbar-toggle btn-default" data-toggle="offcanvas" data-target=".navmenu">
+                <i class="glyphicon glyphicon-menu-hamburger"></i>
+            </a>
         </div>
-    </footer>
-</div>
+        @RenderBody()
+        <div class="modal fade" id="dice-rename" tabindex="-1" role="dialog" aria-labelledby="dice-rename">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Renommer un joueur</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="dice-rename-input" class="input-lg" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+                        <button type="button" class="btn btn-primary" onclick="dice.ui.rename()" data-toggle="modal" data-target="#dice-rename">Renommer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer">
+            <p class="text-muted pull-right" style="margin: 10px 10px 0 0">@ViewBag.AppName &copy; @DateTime.Now.Year - Davignola</p>
+        </footer>
+    </div>
 </body>
 </html>

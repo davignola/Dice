@@ -5,7 +5,7 @@ if (!dice) {
 dice.ui = new function () {
     var self = this;
 
-    var diceView = {
+    this.diceView = {
         playerSlots: 12,
         playerContainerId: "dice-scoreboard",
         playerColumnAttribute: "data-player-container",
@@ -25,8 +25,11 @@ dice.ui = new function () {
         minColSizeXs: 4,
         minColSizeSm: 3,
         minColSizeMd: 3,
-        minColSizeLg: 2
-};
+        minColSizeLg: 2,
+        renameId: "dice-rename",
+        renameInputId: "dice-rename-input",
+        renameCurrentObject: null
+    };
 
     this.alertSeverity = {
         success: "alert-success",
@@ -39,109 +42,124 @@ dice.ui = new function () {
         /// <summary>Add the ui column player container</summary>
         /// <param name="playerObject" type="dice.components.Player"></param>
         // Get main container
-        var scoreboard = $("#" + diceView.playerContainerId);
+        var scoreboard = $("#" + self.diceView.playerContainerId);
         // This is the column
         var playerContainer = $("<div>");
-        playerContainer.attr(diceView.playerColumnAttribute, playerObject.index);
+        playerContainer.attr(self.diceView.playerColumnAttribute, playerObject.index);
         // Panel with title and scoreboard
         var playerPanel = $("<div>");
         playerPanel
             .addClass("panel panel-default")
-            .attr(diceView.playerPanelAttribute, playerObject.index)
+            .attr(self.diceView.playerPanelAttribute, playerObject.index)
             .append($("<div>").addClass("panel-heading")
                 // Adding title
                 .append($("<h3>").addClass("panel-title")
-                    .attr("id", diceView.playerPanelTitleBaseId + playerObject.index)
-                    .text(playerObject.name)))
+                    .attr("id", self.diceView.playerPanelTitleBaseId + playerObject.index)
+                    .text(playerObject.name)
+                    .on("dblclick", playerObject, self.showRename)))
             // Adding body (scoreboard)
             .append($("<div>").addClass("panel-body low-pad")
                 .append($("<ul>").addClass("list-group")
-                    .attr(diceView.playerScoreBoardAttribute, playerObject.index)))
+                    .attr(self.diceView.playerScoreBoardAttribute, playerObject.index)))
             // Total in footer
             .append($("<div>").addClass("panel-footer")
                 .append($("<h5>")
                     .addClass("")
-                    .attr(diceView.playerPanelFooterAttribute, playerObject.index)
+                    .attr(self.diceView.playerPanelFooterAttribute, playerObject.index)
                     .text("Total: 0")));
         // Adding to containers
         playerContainer.append(playerPanel);
         scoreboard.append(playerContainer);
+        // Force wrapping on a new line
+        if ((playerObject.index + 1) % (self.diceView.playerSlots / self.diceView.minColSizeLg) === 0) {
+            scoreboard.append($("<div>").addClass("clearfix visible-lg-block"));
+        }
+        if ((playerObject.index + 1) % (self.diceView.playerSlots / self.diceView.minColSizeMd) === 0) {
+            scoreboard.append($("<div>").addClass("clearfix visible-md-block"));
+        }
+        if ((playerObject.index + 1) % (self.diceView.playerSlots / self.diceView.minColSizeSm) === 0) {
+            scoreboard.append($("<div>").addClass("clearfix visible-sm-block"));
+        }
+        if ((playerObject.index + 1) % (self.diceView.playerSlots / self.diceView.minColSizeXs) === 0) {
+            scoreboard.append($("<div>").addClass("clearfix visible-xs-block"));
+        }
         // update columns classes
         self.setColumnClass();
     };
 
     this.setColumnClass = function () {
         var playerCount = dice.manager.players.length;
-        var containers = $("#" + diceView.playerContainerId).find("div[" + diceView.playerColumnAttribute + "]");
-        var previousXs = Math.max(diceView.previousColumnSize, diceView.minColSizeXs);
-        var previousSm = Math.max(diceView.previousColumnSize, diceView.minColSizeSm);
-        var previousMd = Math.max(diceView.previousColumnSize, diceView.minColSizeMd);
-        if (diceView.previousColumnSize > 0) {
-            containers.removeClass("col-lg-" + diceView.previousColumnSize +
+        var containers = $("#" + self.diceView.playerContainerId).find("div[" + self.diceView.playerColumnAttribute + "]");
+        var previousXs = Math.max(self.diceView.previousColumnSize, self.diceView.minColSizeXs);
+        var previousSm = Math.max(self.diceView.previousColumnSize, self.diceView.minColSizeSm);
+        var previousMd = Math.max(self.diceView.previousColumnSize, self.diceView.minColSizeMd);
+        if (self.diceView.previousColumnSize > 0) {
+            containers.removeClass("col-lg-" + self.diceView.previousColumnSize +
                                    " col-xs-" + previousXs +
                                    " col-sm-" + previousSm +
                                    " col-md-" + previousMd);
         }
-        var columnSize = Math.max(Math.floor(diceView.playerSlots / playerCount), diceView.minColSizeLg);
-        var columnSizeXs = Math.max(columnSize, diceView.minColSizeXs);
-        var columnSizeSm = Math.max(columnSize, diceView.minColSizeSm);
-        var columnSizeMd = Math.max(columnSize, diceView.minColSizeMd);
+        var columnSize = Math.max(Math.floor(self.diceView.playerSlots / playerCount), self.diceView.minColSizeLg);
+        var columnSizeXs = Math.max(columnSize, self.diceView.minColSizeXs);
+        var columnSizeSm = Math.max(columnSize, self.diceView.minColSizeSm);
+        var columnSizeMd = Math.max(columnSize, self.diceView.minColSizeMd);
         containers.addClass("col-lg-" + columnSize +
                             " col-xs-" + columnSizeXs +
                             " col-sm-" + columnSizeSm +
                             " col-md-" + columnSizeMd);
-        diceView.previousColumnSize = columnSize;
+        self.diceView.previousColumnSize = columnSize;
     };
 
     this.setCurentPlayer = function (playerIndex) {
-        $("div[" + diceView.playerPanelAttribute + "]")
+        $("div[" + self.diceView.playerPanelAttribute + "]")
             .removeClass("panel-primary")
             .addClass("panel-default");
-        $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]")
+        $("div[" + self.diceView.playerPanelAttribute + "=" + playerIndex + "]")
             .removeClass("panel-default")
             .addClass("panel-primary");
     };
 
     this.addPoint = function (playerIndex, roundNumber, points, totalPoints) {
-        var currentPanel = $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]");
-        currentPanel.find("[" + diceView.playerScoreBoardAttribute + "]")
+        var currentPanel = $("div[" + self.diceView.playerPanelAttribute + "=" + playerIndex + "]");
+        currentPanel.find("[" + self.diceView.playerScoreBoardAttribute + "]")
             .append($("<li>").addClass("list-group-item low-pad")
-                .attr(diceView.playerPointsRoundAttribute, roundNumber)
+                .attr(self.diceView.playerPointsRoundAttribute, roundNumber)
                 .text(points));
-        currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
+        currentPanel.find("[" + self.diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
     };
 
     this.removePoints = function (playerIndex, roundNumber, totalPoints) {
-        var currentPanel = $("div[" + diceView.playerPanelAttribute + "=" + playerIndex + "]");
-        currentPanel.find("[" + diceView.playerPointsRoundAttribute + "=" + roundNumber + "]")
+        var currentPanel = $("div[" + self.diceView.playerPanelAttribute + "=" + playerIndex + "]");
+        currentPanel.find("[" + self.diceView.playerPointsRoundAttribute + "=" + roundNumber + "]")
             .remove();
-        currentPanel.find("[" + diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
+        currentPanel.find("[" + self.diceView.playerPanelFooterAttribute + "]").text("Total: " + totalPoints);
     };
 
     this.reset = function () {
-        $("[" + diceView.playerScoreBoardAttribute + "]").html("");
-        $("[" + diceView.playerPanelFooterAttribute + "]").text("Total: 0");
+        $("[" + self.diceView.playerScoreBoardAttribute + "]").html("");
+        $("[" + self.diceView.playerPanelFooterAttribute + "]").text("Total: 0");
         self.setCurentPlayer(0);
     };
 
     this.accumulate = function (points) {
-        var accumulator = $("#" + diceView.playerPointsAccumulatorId);
+        var accumulator = $("#" + self.diceView.playerPointsAccumulatorId);
         var currentValue = self.getAccumulated(accumulator);
         accumulator.val(currentValue + points);
     };
 
     this.getAccumulated = function (selector) {
-        var accumulator = selector || $("#" + diceView.playerPointsAccumulatorId);
+        var accumulator = selector || $("#" + self.diceView.playerPointsAccumulatorId);
         return Number(accumulator.val()) || 0;
     };
+
     this.setAccumulated = function (value) {
-        return $("#" + diceView.playerPointsAccumulatorId).val(value || 0);
+        return $("#" + self.diceView.playerPointsAccumulatorId).val(value || 0);
     };
 
     this.addAlert = function (message, severity) {
-        var count = diceView.alertCount++;
+        var count = self.diceView.alertCount++;
         $("body").append($("<div>").addClass("alert fade in alert-fixed-top alert-dismissible " + severity)
-            .attr("id", diceView.alertBaseId + count)
+            .attr("id", self.diceView.alertBaseId + count)
             .text(message)
             /*.append($("<a>").attr("href", "#")
                             .attr("data-dismiss", "alert")
@@ -149,19 +167,37 @@ dice.ui = new function () {
                             .addClass("close")
                             .html("&times;"))*/);
         //Auto Close
-        setTimeout(function () { $("#" + diceView.alertBaseId + count).alert("close"); }, diceView.alertDelay);
+        setTimeout(function () { $("#" + self.diceView.alertBaseId + count).alert("close"); }, self.diceView.alertDelay);
     };
 
-    this.getParams = function () {
+    this.getParams = function() {
         return {
-            target: Number($("#" + diceView.paramTargetId).val()) || 20000,
-            startup: Number($("#" + diceView.paramStartupId).val()) || 500,
-            cumul: Number($("#" + diceView.paramcumulId).val()) || 5000
+            target: Number($("#" + self.diceView.paramTargetId).val()) || 20000,
+            startup: Number($("#" + self.diceView.paramStartupId).val()) || 500,
+            cumul: Number($("#" + self.diceView.paramcumulId).val()) || 5000
         };
-    }
+    };
 
     this.clearPlayerContainer = function () {
-        $("#" + diceView.playerContainerId).html("");
+        $("#" + self.diceView.playerContainerId).html("");
     };
 
+    this.addStar = function(playerIndex) {
+        $("#" + self.diceView.playerPanelTitleBaseId + playerIndex).append($("<span>").addClass("glyphicon glyphicon-star pull-right"));
+    };
+
+    this.showRename = function (event) {
+        // Set current object
+        self.diceView.renameCurrentObject = event.data;
+        // Init the rename input to the current name
+        $("#" + self.diceView.renameInputId).val(self.diceView.renameCurrentObject.name);
+        $("#" + self.diceView.renameId).modal("show");
+
+    };
+
+    this.rename = function(newName) {
+        newName = newName || $("#" + self.diceView.renameInputId).val();
+        self.diceView.renameCurrentObject.name = newName;
+        $("#" + self.diceView.playerPanelTitleBaseId + self.diceView.renameCurrentObject.index).text(newName);
+    };
 };
