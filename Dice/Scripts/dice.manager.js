@@ -13,7 +13,7 @@ dice.manager = new function () {
     this.pointsToStart = 500;
     this.pointsToAccumulateLast = 5000;
     this.lastPoints = 0;
-    
+
     this.addPlayer = function (name) {
         var newIndex = self.getMaxIndex() + 1;
         name = name || "Joueur " + (newIndex + 1);
@@ -143,6 +143,13 @@ dice.manager = new function () {
         self.currentPlayer.removeLastPoints();
         // Remove points from ui
         dice.ui.removePoints(previousIndex, self.roundCount, self.currentPlayer.totalPoints());
+        // Restore previous points
+        var lastPlayerPoints = self.players[self.getPreviousIndex()].points;
+        if (lastPlayerPoints.length > 0) {
+            self.lastPoints = lastPlayerPoints[lastPlayerPoints.length - 1];
+        } else {
+            self.lastPoints = 0;
+        }
     };
 
     this.reset = function () {
@@ -170,4 +177,17 @@ dice.manager = new function () {
         // Reset the rest
         self.reset();
     };
+
+    this.removePlayer = function(playerIndex) {
+        self.players.slice(playerIndex);
+        // Re-index
+        for (var i in self.players) {
+            if (self.players.hasOwnProperty(i)) {
+                self.players[i].index = Number(i);
+            }
+        }
+        //TODO: re-index ui
+        // Remove from ui
+        dice.ui.removePlayerContainer(playerIndex);
+    }
 };

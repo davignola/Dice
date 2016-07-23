@@ -88,6 +88,10 @@ dice.ui = new function () {
         self.setColumnClass();
     };
 
+    this.removePlayerContainer = function (playerIndex) {
+        $("[" + self.diceView.playerColumnAttribute + "=" + playerIndex + "]").remove();
+    }
+
     this.setColumnClass = function () {
         var playerCount = dice.manager.players.length;
         var containers = $("#" + self.diceView.playerContainerId).find("div[" + self.diceView.playerColumnAttribute + "]");
@@ -171,7 +175,7 @@ dice.ui = new function () {
         setTimeout(function () { $("#" + self.diceView.alertBaseId + count).alert("close"); }, self.diceView.alertDelay);
     };
 
-    this.getParams = function() {
+    this.getParams = function () {
         return {
             target: Number($("#" + self.diceView.paramTargetId).val()) || 20000,
             startup: Number($("#" + self.diceView.paramStartupId).val()) || 500,
@@ -183,7 +187,7 @@ dice.ui = new function () {
         $("#" + self.diceView.playerContainerId).html("");
     };
 
-    this.addStar = function(playerIndex) {
+    this.addStar = function (playerIndex) {
         $("#" + self.diceView.playerPanelTitleBaseId + playerIndex).append($("<span>").addClass("glyphicon glyphicon-star pull-right"));
     };
 
@@ -196,11 +200,11 @@ dice.ui = new function () {
 
     };
 
-    this.hideRename = function() {
+    this.hideRename = function () {
         $("#" + self.diceView.renameId).modal("hide");
     }
 
-    this.rename = function(newName) {
+    this.rename = function (newName) {
         newName = newName || $("#" + self.diceView.renameInputId).val();
         self.diceView.renameCurrentObject.name = newName;
         $("#" + self.diceView.playerPanelTitleBaseId + self.diceView.renameCurrentObject.index).text(newName);

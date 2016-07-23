@@ -115,3 +115,10 @@ html {
     /* ReSharper disable once CssBrowserCompatibility */
     box-shadow: none;
 }
+
+/*.dice-scoreboard {
+    position: fixed;
+    padding-bottom: 60px;
+    max-height: 100%;
+    overflow-y: auto;
+}*/
