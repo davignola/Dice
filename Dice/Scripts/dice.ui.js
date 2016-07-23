@@ -19,6 +19,7 @@ dice.ui = new function () {
         paramTargetId: "dice-param-target",
         paramStartupId: "dice-param-startup",
         paramcumulId: "dice-param-cumul",
+        paramCollapsibleId: "dice-params",
         alertCount: 0,
         alertDelay: 3000,
         previousColumnSize: 0,
