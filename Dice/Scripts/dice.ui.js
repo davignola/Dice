@@ -195,6 +195,10 @@ dice.ui = new function () {
 
     };
 
+    this.hideRename = function() {
+        $("#" + self.diceView.renameId).modal("hide");
+    }
+
     this.rename = function(newName) {
         newName = newName || $("#" + self.diceView.renameInputId).val();
         self.diceView.renameCurrentObject.name = newName;

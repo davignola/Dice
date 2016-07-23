@@ -20,8 +20,14 @@
                     .focus()
                     .select();
             });
-            var windowWidth = $(window).width();
-            if (windowWidth <= 768) //for smaller devices
+            $("#" + dice.ui.diceView.renameInputId).keyup(function(e) {
+                if (e.keyCode === 13) {
+                    dice.ui.rename();
+                    dice.ui.hideRename();
+                }
+            });
+            var windowHeigth = $(window).height();
+            if (windowHeigth <= 657) //for smaller devices
             {
                 $(".navmenu").find(".collapse").removeClass('in');
             }
