@@ -49,12 +49,12 @@ html {
 
 .container-fluid {
     margin: 0;
-    padding: 0 ;
+    padding: 0;
 }
 
-    .container .text-muted {
-        margin: 20px 0;
-    }
+.container .text-muted {
+    margin: 20px 0;
+}
 
 .row.no-pad {
     margin-right: 0;
@@ -94,7 +94,7 @@ html {
 
 .navbar-toggle {
     float: right;
-    margin-left: 15px;
+    margin-right: 20px;
     display: block !important;
 }
 
@@ -115,10 +115,46 @@ html {
     /* ReSharper disable once CssBrowserCompatibility */
     box-shadow: none;
 }
+@media (min-width: 1px) {
+    .dice-points-controls,
+    .dice-scoreboard {
+        height: 100%;
+    }
 
-/*.dice-scoreboard {
-    position: fixed;
-    padding-bottom: 60px;
-    max-height: 100%;
-    overflow-y: auto;
-}*/
+    .dice-points-controls {
+        padding-left: 10px;
+    }
+
+    .dice-scoreboard {
+        padding-right: 50px;
+    }
+}
+
+@media (min-width: 768px) {
+    .dice-points-controls {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 25%;
+        overflow-y: auto;
+    }
+
+    .dice-scoreboard {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        overflow-y: scroll;
+        width: 75%;
+    }
+
+    .dice-points-controls,
+    .dice-scoreboard {
+        padding-bottom: 60px;
+    }
+}
+
+::-webkit-scrollbar{
+    display: none;
+}
