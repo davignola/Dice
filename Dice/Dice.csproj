@@ -146,6 +146,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\jasny-bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\dice-davignola.pubxml" />
     <None Include="Properties\PublishProfiles\dice.davignola.com - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
