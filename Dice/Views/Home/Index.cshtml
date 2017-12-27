@@ -1,41 +1,41 @@
 ﻿<div class="dice-main-area" id="dice-main">
     <div class="dice-points-controls">
         <div class="btn-group btn-group-justified btn-group-lg">
-            <a class="btn btn-default " onclick="dice.ui.accumulate(50)">
+            <a class="btn btn-default " onclick="Dice.Ui.accumulate(50)">
                 <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 50
             </a>
-            <a class="btn btn-default" onclick="dice.ui.accumulate(100)">
+            <a class="btn btn-default" onclick="Dice.Ui.accumulate(100)">
                 <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 100
             </a>
-            <a class="btn btn-default" onclick="dice.ui.accumulate(250)">
+            <a class="btn btn-default" onclick="Dice.Ui.accumulate(250)">
                 <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 250
             </a>
         </div>
         <div class="btn-group btn-group-justified btn-group-lg">
-            <a class="btn btn-default" onclick="dice.ui.accumulate(500)">
+            <a class="btn btn-default" onclick="Dice.Ui.accumulate(500)">
                 <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 500
             </a>
-            <a class="btn btn-default" onclick="dice.ui.accumulate(1000)">
+            <a class="btn btn-default" onclick="Dice.Ui.accumulate(1000)">
                 <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 1000
             </a>
-            <a class="btn btn-default" onclick="dice.ui.accumulate(3000)">
+            <a class="btn btn-default" onclick="Dice.Ui.accumulate(3000)">
                 <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> 3000
             </a>
         </div>
-        <a class="btn btn-default btn-block btn-lg" onclick="dice.manager.accumulateLast()">
+        <a class="btn btn-default btn-block btn-lg" onclick="Dice.Manager.getInstance().accumulateLast()">
             <i class="glyphicon glyphicon-plus-sign hidden-xs"></i> Score Précédent
         </a>
         <br />
-        <a class="btn btn-block btn-danger" onclick="dice.ui.setAccumulated(0)">
+        <a class="btn btn-block btn-danger" onclick="Dice.Ui.setAccumulated(0)">
             <i class="glyphicon glyphicon-remove-sign hidden-xs"></i> Clear
         </a>
         <hr/>
         <strong>Points : </strong><input type="number" id="dice-point-accumulator" min="0" max="20000" class="input-lg" style="margin-bottom: 15px;" />
 
-        <a class="btn btn-lg btn-primary btn-block" id="dice-startbutton" onclick="dice.manager.nextPlayer()">
+        <a class="btn btn-lg btn-primary btn-block" id="dice-startbutton" onclick="Dice.Manager.getInstance().nextPlayer()">
             <i class="glyphicon glyphicon-ok-sign hidden-xs"></i> Joueur Suivant
         </a>
-        <!--<a class="btn btn-lg btn-primary btn-block hidden-xs" onclick="dice.manager.nextPlayerAccumulateLast()">
+        <!--<a class="btn btn-lg btn-primary btn-block hidden-xs" onclick="Dice.Manager.getInstance.nextPlayerAccumulateLast()">
             <i class="glyphicon glyphicon-ok-sign"></i>Joueur Suivant + Précédent
         </a>-->
     </div>

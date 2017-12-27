@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dice", "Dice\Dice.csproj", "{D5AE1702-C850-41D5-9958-ABE0E6E36855}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dice.Tests", "Dice.Tests\Dice.Tests.csproj", "{13A30F78-2BC9-4DAC-A4F7-C5C3D83D00A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiceBridge", "DiceBridge\DiceBridge.csproj", "{84B3CB98-6733-4FEF-84FE-0E5E5D943CE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,14 +22,18 @@ Global
 		{D5AE1702-C850-41D5-9958-ABE0E6E36855}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{13A30F78-2BC9-4DAC-A4F7-C5C3D83D00A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{13A30F78-2BC9-4DAC-A4F7-C5C3D83D00A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84B3CB98-6733-4FEF-84FE-0E5E5D943CE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84B3CB98-6733-4FEF-84FE-0E5E5D943CE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84B3CB98-6733-4FEF-84FE-0E5E5D943CE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84B3CB98-6733-4FEF-84FE-0E5E5D943CE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 3
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://davignola.visualstudio.com/defaultcollection
+		SccTeamFoundationServer = https://davignola.visualstudio.com/
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = Dice.Tests\\Dice.Tests.csproj
 		SccProjectName1 = Dice.Tests
@@ -35,5 +41,8 @@ Global
 		SccProjectUniqueName2 = Dice\\Dice.csproj
 		SccProjectName2 = Dice
 		SccLocalPath2 = Dice
+		SccProjectUniqueName3 = DiceBridge\\DiceBridge.csproj
+		SccProjectName3 = DiceBridge
+		SccLocalPath3 = DiceBridge
 	EndGlobalSection
 EndGlobal

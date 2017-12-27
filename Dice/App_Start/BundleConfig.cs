@@ -24,8 +24,8 @@ namespace Dice
                 "~/Scripts/respond.matchmedia.addListener.js",
                 "~/Scripts/jasny-bootstrap.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/dice").Include(
-                "~/Scripts/dice.*"));
+            bundles.Add(new ScriptBundle("~/bundles/dice").IncludeDirectory(
+                "~/Bridge/output", "*.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",

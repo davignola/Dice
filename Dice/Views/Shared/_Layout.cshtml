@@ -15,26 +15,26 @@
     <script>
         $(document).ready(function () {
             // focus and select rename input on show dialog
-            $("#" + dice.ui.diceView.renameId).on('shown.bs.modal', function () {
-                $("#" + dice.ui.diceView.renameInputId)
+            $("#" + Dice.Ui.DiceView.renameId).on('shown.bs.modal', function () {
+                $("#" + Dice.Ui.DiceView.renameInputId)
                     .focus()
                     .select();
             });
-            $("#" + dice.ui.diceView.renameInputId).keyup(function (e) {
+            $("#" + Dice.Ui.DiceView.renameInputId).keyup(function (e) {
                 if (e.keyCode === 13) {
-                    dice.ui.rename();
-                    dice.ui.hideRename();
+                    Dice.Ui.rename();
+                    Dice.Ui.hideRename();
                 }
             });
-            $("#" + dice.ui.diceView.playerPointsAccumulatorId).keyup(function (e) {
+            $("#" + Dice.Ui.DiceView.playerPointsAccumulatorId).keyup(function (e) {
                 if (e.keyCode === 13) {
-                    dice.manager.nextPlayer();
+                    Dice.Manager.getInstance().nextPlayer();
                 }
             });
             var windowHeigth = $(window).height();
             if (windowHeigth <= 657) //for smaller devices
             {
-                $("#" + dice.ui.diceView.paramCollapsibleId).removeClass('in');
+                $("#" + Dice.Ui.DiceView.paramCollapsibleId).removeClass('in');
             }
         });
     </script>
@@ -44,14 +44,14 @@
             <hr />
             <h3 data-toggle="collapse" data-target="#dice-game-controls">Partie courante</h3>
             <div class="collapse in" id="dice-game-controls">
-                <a class="btn btn-success btn-block btn-lg" onclick="dice.manager.addPlayer()" href="#">
+                <a class="btn btn-success btn-block btn-lg" onclick="Dice.Manager.getInstance().addPlayer()" href="#">
                     <span class="glyphicon glyphicon-plus"></span> Ajouter Joueur
                 </a>
-                <a class="btn btn-warning btn-block" onclick="dice.manager.cancelLastMove()" href="#">
+                <a class="btn btn-warning btn-block" onclick="Dice.Manager.getInstance().cancelLastMove()" href="#">
                     <span class="glyphicon glyphicon-backward"></span> Annuler Dernier
                 </a>
                 <br />
-                <a class="btn btn-danger btn-block" onclick="dice.manager.reset()" href="#">
+                <a class="btn btn-danger btn-block" onclick="Dice.Manager.getInstance().reset()" href="#">
                     <span class="glyphicon glyphicon-repeat"></span> Remise à zéro
                 </a>
             </div>
@@ -71,8 +71,12 @@
                 <input type="number" class="input-lg" min="0" value="5000" id="dice-param-cumul" />
                 <br />
                 <br />
-                <a class="btn btn-info btn-block btn-lg" onclick="dice.manager.newGame()" href="#">
+                <a class="btn btn-info btn-block btn-lg" onclick="Dice.Manager.getInstance().newGame()" href="#">
                     <span class="glyphicon glyphicon-play-circle"></span> Nouvelle partie
+                </a>
+                <br />
+                <a class="btn btn-block btn-lg" onclick="Dice.Manager.getInstance().loadGame()" href="#">
+                    Restaurer
                 </a>
             </div>
             <hr />
@@ -94,9 +98,9 @@
                         <input type="text" id="dice-rename-input" class="input-lg" />
                     </div>
                     <div class="modal-footer">
-                        <!--<a class="btn btn-danger pull-left" data-dismiss="modal" onclick="dice.manager.removePlayer(dice.ui.diceView.renameCurrentObject.index)">Supprimer</a>-->
+                        <!--<a class="btn btn-danger pull-left" data-dismiss="modal" onclick="Dice.Manager.getInstance().removePlayer(Dice.Ui.DiceView.renameCurrentObject.index)">Supprimer</a>-->
                         <a class="btn btn-default" data-dismiss="modal">Fermer</a>
-                        <a class="btn btn-primary" data-dismiss="modal" onclick="dice.ui.rename()">Renommer</a>
+                        <a class="btn btn-primary" data-dismiss="modal" onclick="Dice.Ui.rename()">Renommer</a>
                     </div>
                 </div>
             </div>
