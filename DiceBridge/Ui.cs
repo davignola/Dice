@@ -66,7 +66,7 @@ namespace Dice
             playerPanel
                 .AddClass("panel panel-default")
                 .Attr(DiceView.PlayerPanelAttribute, playerObject.Index)
-                .Append(new jQuery("<div>").AddClass("panel-heading")
+                .Append(new jQuery("<div>").AddClass("panel-heading low-pad")
                     // Adding title
                     .Append(new jQuery("<h3>").AddClass("panel-title")
                         .Attr("id", DiceView.PlayerPanelTitleBaseId + playerObject.Index)

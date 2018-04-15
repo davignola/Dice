@@ -202,7 +202,7 @@ Bridge.assembly("Dice", function ($asm, globals) {
         },
         saveGame: function () {
             window.localStorage.setItem(Dice.Manager.savedGameStateKey, JSON.stringify(this, System.Array.init(["Settings", "RoundCount", "LastPoints", "LastRoundPlayerIndex", "CurrentPlayer"], String)));
-            window.localStorage.setItem(Dice.Manager.savedGamePlayersKey, JSON.stringify(this.players));
+            window.localStorage.setItem(Dice.Manager.savedGamePlayersKey, JSON.stringify(this.players.toArray()));
         },
         loadGame: function () {
             var $t;
@@ -314,7 +314,7 @@ Bridge.assembly("Dice", function ($asm, globals) {
                 playerContainer.attr(Dice.Ui.DiceView.PlayerColumnAttribute, playerObject.index);
                 // Panel with title and scoreboard
                 var playerPanel = $("<div>");
-                playerPanel.addClass("panel panel-default").attr(Dice.Ui.DiceView.PlayerPanelAttribute, playerObject.index).append($("<div>").addClass("panel-heading").append($("<h3>").addClass("panel-title").attr("id", System.String.concat(Dice.Ui.DiceView.PlayerPanelTitleBaseId, playerObject.index)).text(playerObject.name).on("dblclick", playerObject.index.toString(), Dice.Ui.showRename))).append($("<div>").addClass("panel-body low-pad").append($("<ul>").addClass("list-group").attr(Dice.Ui.DiceView.PlayerScoreBoardAttribute, playerObject.index))).append($("<div>").addClass("panel-footer").append($("<h5>").addClass("").attr(Dice.Ui.DiceView.PlayerPanelFooterAttribute, playerObject.index).text("Total: 0")));
+                playerPanel.addClass("panel panel-default").attr(Dice.Ui.DiceView.PlayerPanelAttribute, playerObject.index).append($("<div>").addClass("panel-heading low-pad").append($("<h3>").addClass("panel-title").attr("id", System.String.concat(Dice.Ui.DiceView.PlayerPanelTitleBaseId, playerObject.index)).text(playerObject.name).on("dblclick", playerObject.index.toString(), Dice.Ui.showRename))).append($("<div>").addClass("panel-body low-pad").append($("<ul>").addClass("list-group").attr(Dice.Ui.DiceView.PlayerScoreBoardAttribute, playerObject.index))).append($("<div>").addClass("panel-footer").append($("<h5>").addClass("").attr(Dice.Ui.DiceView.PlayerPanelFooterAttribute, playerObject.index).text("Total: 0")));
                 // Adding to containers
                 playerContainer.append(playerPanel);
                 scoreboard.append(playerContainer);
@@ -479,4 +479,8 @@ Bridge.assembly("Dice", function ($asm, globals) {
             renameCurrentPlayer: null
         }
     });
+
+    var $m = Bridge.setMetadata,
+        $n = [System,System.Collections.Generic,Dice.Component];
+    $m($n[2].Player, function () { return {"att":1048577,"a":2,"m":[{"a":2,"n":".ctor","t":1,"sn":"ctor"},{"a":2,"n":".ctor","t":1,"p":[String,$n[0].Int32],"pi":[{"n":"name","pt":String,"ps":0},{"n":"index","pt":$n[0].Int32,"ps":1}],"sn":"$ctor1"},{"a":2,"n":"AddPoint","t":8,"pi":[{"n":"point","pt":$n[0].Int32,"ps":0}],"sn":"addPoint","rt":Object,"p":[$n[0].Int32]},{"a":2,"n":"RemoveLastPoints","t":8,"sn":"removeLastPoints","rt":Object},{"a":2,"n":"Reset","t":8,"sn":"reset","rt":Object},{"a":2,"n":"LastPoints","t":16,"rt":$n[0].Int32,"g":{"a":2,"n":"get_LastPoints","t":8,"sn":"getLastPoints","rt":$n[0].Int32}},{"a":2,"n":"TotalPoints","t":16,"rt":$n[0].Int32,"g":{"a":2,"n":"get_TotalPoints","t":8,"sn":"getTotalPoints","rt":$n[0].Int32}},{"a":2,"n":"CanAccumulateLast","t":4,"rt":Boolean,"sn":"canAccumulateLast"},{"a":2,"n":"Index","t":4,"rt":$n[0].Int32,"sn":"index"},{"a":2,"n":"Name","t":4,"rt":String,"sn":"name"},{"a":2,"n":"Points","t":4,"rt":$n[1].List$1(System.Int32),"sn":"points"},{"a":2,"n":"StarCount","t":4,"rt":$n[0].Int32,"sn":"starCount"}]}; });
 });

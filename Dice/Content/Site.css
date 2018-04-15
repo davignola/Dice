@@ -66,6 +66,23 @@ html {
         padding-left: 0;
     }
 
+.panel-heading.low-pad {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.panel-body.low-pad {
+    padding-top: 5px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.list-group-item.low-pad {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
 .row.low-pad {
     margin-right: 5px;
     margin-left: 5px;
@@ -93,8 +110,8 @@ html {
 }
 
 .navbar-toggle {
-    float: right;
-    margin-right: 20px;
+    float: left;
+    margin-left: 5px;
     display: block !important;
 }
 
@@ -108,7 +125,7 @@ html {
 
 
 .navbar {
-    left: auto;
+    left: 0;
     background: none;
     border: none;
     -webkit-box-shadow: none;
@@ -123,27 +140,27 @@ html {
     }
 
     .dice-points-controls {
-        padding-left: 10px;
+        padding-right: 10px;
         position: absolute;
         top: 0;
         bottom: 0;
-        left: 0;
+        right: 0;
         width: 30%;
         overflow-y: auto;
     }
 
     .dice-scoreboard {
-        padding-right: 50px;
+        padding-left: 35px;
         position: absolute;
         top: 0;
         bottom: 0;
-        right: 0;
+        left: 0;
         overflow-y: scroll;
         width: 70%;
     }
 }
 
-@media (min-width: 768px) {
+@media (min-height: 657px) {
     .dice-points-controls,
     .dice-scoreboard {
         padding-bottom: 60px;
