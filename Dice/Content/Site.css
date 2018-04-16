@@ -139,6 +139,11 @@ html {
     box-shadow: none;
 }
 
+.player-icon {
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
 @media (min-width: 1px) {
     .dice-points-controls,
     .dice-scoreboard {

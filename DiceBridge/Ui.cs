@@ -70,8 +70,8 @@ namespace Dice
                     // Adding title
                     .Append(new jQuery("<h3>").AddClass("panel-title")
                         .Attr("id", DiceView.PlayerPanelTitleBaseId + playerObject.Index)
-                        .Text(playerObject.Name)
-                        .Append(new jQuery("<span>").AddClass("glyphicon glyphicon-edit pull-right")
+                        .Append(new jQuery("<span>").AddClass("player-name").Text(playerObject.Name))
+                        .Append(new jQuery("<span>").AddClass("glyphicon glyphicon-edit pull-right player-icon")
                             .On("click", null, playerObject.Index.ToString(), (Action<jQueryEvent>)Ui.ShowRename))))
                 // Adding body (scoreboard)
                 .Append(new jQuery("<div>").AddClass("panel-body low-pad")
@@ -226,7 +226,7 @@ namespace Dice
 
         public static void AddStar(int playerIndex)
         {
-            jQuery.Select("#" + DiceView.PlayerPanelTitleBaseId + playerIndex).Append(new jQuery("<span>").AddClass("glyphicon glyphicon-star pull-right"));
+            jQuery.Select("#" + DiceView.PlayerPanelTitleBaseId + playerIndex).Append(new jQuery("<span>").AddClass("glyphicon glyphicon-star pull-right player-icon"));
         }
 
         public static void ShowRename(object theEvent)
@@ -250,7 +250,7 @@ namespace Dice
         {
             newName = string.IsNullOrWhiteSpace(newName) ? jQuery.Select("#" + DiceView.RenameInputId).Val() : newName;
             DiceView.RenameCurrentPlayer.Name = newName;
-            jQuery.Select("#" + DiceView.PlayerPanelTitleBaseId + DiceView.RenameCurrentPlayer.Index).Text(newName);
+            jQuery.Select("#" + DiceView.PlayerPanelTitleBaseId + DiceView.RenameCurrentPlayer.Index + " .player-name").Text(newName);
         }
     }
 }

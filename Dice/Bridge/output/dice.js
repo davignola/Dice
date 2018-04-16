@@ -317,7 +317,7 @@ Bridge.assembly("Dice", function ($asm, globals) {
                 playerContainer.attr(Dice.Ui.DiceView.PlayerColumnAttribute, playerObject.index);
                 // Panel with title and scoreboard
                 var playerPanel = $("<div>");
-                playerPanel.addClass("panel panel-default").attr(Dice.Ui.DiceView.PlayerPanelAttribute, playerObject.index).append($("<div>").addClass("panel-heading low-pad").append($("<h3>").addClass("panel-title").attr("id", System.String.concat(Dice.Ui.DiceView.PlayerPanelTitleBaseId, playerObject.index)).text(playerObject.name).append($("<span>").addClass("glyphicon glyphicon-edit pull-right").on("click", null, playerObject.index.toString(), Dice.Ui.showRename)))).append($("<div>").addClass("panel-body low-pad").append($("<ul>").addClass("list-group").attr(Dice.Ui.DiceView.PlayerScoreBoardAttribute, playerObject.index))).append($("<div>").addClass("panel-footer").append($("<h5>").addClass("").attr(Dice.Ui.DiceView.PlayerPanelFooterAttribute, playerObject.index).text("Total: 0")));
+                playerPanel.addClass("panel panel-default").attr(Dice.Ui.DiceView.PlayerPanelAttribute, playerObject.index).append($("<div>").addClass("panel-heading low-pad").append($("<h3>").addClass("panel-title").attr("id", System.String.concat(Dice.Ui.DiceView.PlayerPanelTitleBaseId, playerObject.index)).append($("<span>").addClass("player-name").text(playerObject.name)).append($("<span>").addClass("glyphicon glyphicon-edit pull-right player-icon").on("click", null, playerObject.index.toString(), Dice.Ui.showRename)))).append($("<div>").addClass("panel-body low-pad").append($("<ul>").addClass("list-group").attr(Dice.Ui.DiceView.PlayerScoreBoardAttribute, playerObject.index))).append($("<div>").addClass("panel-footer").append($("<h5>").addClass("").attr(Dice.Ui.DiceView.PlayerPanelFooterAttribute, playerObject.index).text("Total: 0")));
                 // Adding to containers
                 playerContainer.append(playerPanel);
                 scoreboard.append(playerContainer);
@@ -424,7 +424,7 @@ Bridge.assembly("Dice", function ($asm, globals) {
                 $("#dice-scoreboard").html("");
             },
             addStar: function (playerIndex) {
-                $(System.String.concat("#dice-player-name-", playerIndex)).append($("<span>").addClass("glyphicon glyphicon-star pull-right"));
+                $(System.String.concat("#dice-player-name-", playerIndex)).append($("<span>").addClass("glyphicon glyphicon-star pull-right player-icon"));
             },
             showRename: function (theEvent) {
                 var jQueryEvent = Bridge.as(theEvent, jQuery.Event);
@@ -444,7 +444,7 @@ Bridge.assembly("Dice", function ($asm, globals) {
             rename: function (newName) {
                 newName = System.String.isNullOrWhiteSpace(newName) ? $("#dice-rename-input").val() : newName;
                 Dice.Ui.DiceView.renameCurrentPlayer.name = newName;
-                $(System.String.concat("#dice-player-name-", Dice.Ui.DiceView.renameCurrentPlayer.index)).text(newName);
+                $(System.String.concat("#dice-player-name-", Dice.Ui.DiceView.renameCurrentPlayer.index, " .player-name")).text(newName);
             }
         }
     });
