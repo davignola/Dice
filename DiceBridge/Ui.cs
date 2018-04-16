@@ -71,7 +71,8 @@ namespace Dice
                     .Append(new jQuery("<h3>").AddClass("panel-title")
                         .Attr("id", DiceView.PlayerPanelTitleBaseId + playerObject.Index)
                         .Text(playerObject.Name)
-                        .On("dblclick", playerObject.Index.ToString(), (Action<jQueryEvent>)Ui.ShowRename)))
+                        .Append(new jQuery("<span>").AddClass("glyphicon glyphicon-edit pull-right")
+                            .On("click", null, playerObject.Index.ToString(), (Action<jQueryEvent>)Ui.ShowRename))))
                 // Adding body (scoreboard)
                 .Append(new jQuery("<div>").AddClass("panel-body low-pad")
                     .Append(new jQuery("<ul>").AddClass("list-group")
@@ -230,8 +231,10 @@ namespace Dice
 
         public static void ShowRename(object theEvent)
         {
+            var jQueryEvent = theEvent as jQueryEvent;
+            if (jQueryEvent == null) { return; }
             // Set current object
-            DiceView.RenameCurrentPlayer = Manager.Instance.GetPlayerbyIndex((int)((jQueryEvent)theEvent).Data);
+            DiceView.RenameCurrentPlayer = Manager.Instance.GetPlayerbyIndex(int.Parse(jQueryEvent.Data.ToString()));
             // Init the rename input to the current name
             jQuery.Select("#" + DiceView.RenameInputId).Val(DiceView.RenameCurrentPlayer.Name);
             jQuery.Select("#" + DiceView.RenameId).Modal("show");

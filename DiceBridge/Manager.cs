@@ -197,6 +197,9 @@ namespace Dice
 
         public void Reset()
         {
+            // Re-Apply (new)rules
+            this.Settings = Ui.GetParams();
+
             foreach (var player in this.Players)
             {
                 player.Reset();

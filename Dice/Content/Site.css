@@ -97,11 +97,17 @@ html {
 
 .navmenu {
     padding-top: 58px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .navbar {
     display: block;
     text-align: center;
+}
+
+.navbar-fixed-top {
+    width: 40px;
 }
 
 .navbar-brand {

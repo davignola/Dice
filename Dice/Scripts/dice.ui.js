@@ -57,7 +57,7 @@ dice.ui = new function () {
                 .append($("<h3>").addClass("panel-title")
                     .attr("id", self.diceView.playerPanelTitleBaseId + playerObject.index)
                     .text(playerObject.name)
-                    .on("dblclick", playerObject, self.showRename)))
+                    .on("dblclick", null, playerObject, self.showRename)))
             // Adding body (scoreboard)
             .append($("<div>").addClass("panel-body low-pad")
                 .append($("<ul>").addClass("list-group")
@@ -100,18 +100,18 @@ dice.ui = new function () {
         var previousMd = Math.max(self.diceView.previousColumnSize, self.diceView.minColSizeMd);
         if (self.diceView.previousColumnSize > 0) {
             containers.removeClass("col-lg-" + self.diceView.previousColumnSize +
-                                   " col-xs-" + previousXs +
-                                   " col-sm-" + previousSm +
-                                   " col-md-" + previousMd);
+                " col-xs-" + previousXs +
+                " col-sm-" + previousSm +
+                " col-md-" + previousMd);
         }
         var columnSize = Math.max(Math.floor(self.diceView.playerSlots / playerCount), self.diceView.minColSizeLg);
         var columnSizeXs = Math.max(columnSize, self.diceView.minColSizeXs);
         var columnSizeSm = Math.max(columnSize, self.diceView.minColSizeSm);
         var columnSizeMd = Math.max(columnSize, self.diceView.minColSizeMd);
         containers.addClass("col-lg-" + columnSize +
-                            " col-xs-" + columnSizeXs +
-                            " col-sm-" + columnSizeSm +
-                            " col-md-" + columnSizeMd);
+            " col-xs-" + columnSizeXs +
+            " col-sm-" + columnSizeSm +
+            " col-md-" + columnSizeMd);
         self.diceView.previousColumnSize = columnSize;
     };
 
