@@ -9,6 +9,10 @@ html {
     min-height: 100%;
 }
 
+.fill-height {
+    height: 100%;
+}
+
 @media (min-height: 1px) {
     body {
         /* Margin bottom by footer height */
@@ -151,12 +155,12 @@ html {
     }
 
     .dice-points-controls {
-        padding-right: 10px;
+        padding-right: 5px;
         position: absolute;
         top: 0;
         bottom: 0;
         right: 0;
-        width: 30%;
+        width: 25%;
         overflow-y: auto;
     }
 
@@ -167,7 +171,7 @@ html {
         bottom: 0;
         left: 0;
         overflow-y: scroll;
-        width: 70%;
+        width: 75%;
     }
 }
 
