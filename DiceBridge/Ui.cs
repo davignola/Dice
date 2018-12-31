@@ -25,6 +25,7 @@ namespace Dice
             public const string PlayerScoreBoardAttribute = "dice-player-scoreboard";
             public const string PlayerPointsRoundAttribute = "dice-score-round";
             public const string PlayerPointsAccumulatorId = "dice-point-accumulator";
+            public const string PlayerRowAttribute = "dice-player-row";
             public const string AlertBaseId = "dice-alert-";
             public const string ParamTargetId = "dice-param-target";
             public const string ParamStartupId = "dice-param-startup";
@@ -58,13 +59,33 @@ namespace Dice
         {
             // Get main container
             var scoreboard = jQuery.Select("#" + DiceView.PlayerContainerId);
+
+            // Max 6 item per real row
+            var rowIndex = Convert.ToInt32(playerObject.Index / (DiceView.PlayerSlots / DiceView.MinColSizeLg));
+
+            var playerRow = scoreboard.Find(string.Format("[PlayerRowAttribute={0}]", rowIndex));
+
+            if (playerRow.Length <= 0)
+            {
+                playerRow = new jQuery("<div>")
+                    .AddClass("row low-pad")
+                    .Attr("PlayerRowAttribute", rowIndex);
+                scoreboard.Append(playerRow);
+
+                // correct row heights
+                scoreboard.Find("[PlayerRowAttribute]")
+                    .RemoveClass("fill-height-" + rowIndex)
+                    .AddClass("fill-height-" + (rowIndex + 1));
+            }
+
             // This is the column
             var playerContainer = new jQuery("<div>");
-            playerContainer.Attr(DiceView.PlayerColumnAttribute, playerObject.Index);
+            playerContainer.Attr(DiceView.PlayerColumnAttribute, playerObject.Index)
+                .AddClass("fill-height");
             // Panel with title and scoreboard
             var playerPanel = new jQuery("<div>");
             playerPanel
-                .AddClass("panel panel-default")
+                .AddClass("panel panel-default low-pad")
                 .Attr(DiceView.PlayerPanelAttribute, playerObject.Index)
                 .Append(new jQuery("<div>").AddClass("panel-heading low-pad")
                     // Adding title
@@ -78,30 +99,31 @@ namespace Dice
                     .Append(new jQuery("<ul>").AddClass("list-group")
                         .Attr(DiceView.PlayerScoreBoardAttribute, playerObject.Index)))
                 // Total in footer
-                .Append(new jQuery("<div>").AddClass("panel-footer")
+                .Append(new jQuery("<div>").AddClass("panel-footer low-pad")
                     .Append(new jQuery("<h5>")
                         .AddClass("")
                         .Attr(DiceView.PlayerPanelFooterAttribute, playerObject.Index)
                         .Text("Total: 0")));
             // Adding to containers
             playerContainer.Append(playerPanel);
-            scoreboard.Append(playerContainer);
+            playerRow.Append(playerContainer);
             // Force wrapping on a new line
-            if ((playerObject.Index + 1) % (DiceView.PlayerSlots / DiceView.MinColSizeLg) == 0)
-            {
-                scoreboard.Append(new jQuery("<div>").AddClass("clearfix visible-lg-block"));
-            }
+            //if ((playerObject.Index + 1) % (DiceView.PlayerSlots / DiceView.MinColSizeLg) == 0)
+            //{
+            //    scoreboard.Append(new jQuery("<div>").AddClass("clearfix visible-lg-block"));
+            //}
+            // Break into logical rows on small devices
             if ((playerObject.Index + 1) % (DiceView.PlayerSlots / DiceView.MinColSizeMd) == 0)
             {
-                scoreboard.Append(new jQuery("<div>").AddClass("clearfix visible-md-block"));
+                playerRow.Append(new jQuery("<div>").AddClass("clearfix visible-md-block"));
             }
             if ((playerObject.Index + 1) % (DiceView.PlayerSlots / DiceView.MinColSizeSm) == 0)
             {
-                scoreboard.Append(new jQuery("<div>").AddClass("clearfix visible-sm-block"));
+                playerRow.Append(new jQuery("<div>").AddClass("clearfix visible-sm-block"));
             }
             if ((playerObject.Index + 1) % (DiceView.PlayerSlots / DiceView.MinColSizeXs) == 0)
             {
-                scoreboard.Append(new jQuery("<div>").AddClass("clearfix visible-xs-block"));
+                playerRow.Append(new jQuery("<div>").AddClass("clearfix visible-xs-block"));
             }
             // update columns classes
             Ui.SetColumnClass();
@@ -151,10 +173,16 @@ namespace Dice
         public static void AddPoint(int playerIndex, int roundNumber, int points, int totalPoints)
         {
             var currentPanel = jQuery.Select("div[" + DiceView.PlayerPanelAttribute + "=" + playerIndex + "]");
-            currentPanel.Find("[" + DiceView.PlayerScoreBoardAttribute + "]")
-                .Append(new jQuery("<li>").AddClass("list-group-item low-pad")
-                    .Attr(DiceView.PlayerPointsRoundAttribute, roundNumber)
-                    .Text(points));
+            var scrollElement = currentPanel.Find(".panel-body");
+            var newItem = new jQuery("<li>").AddClass("list-group-item low-pad")
+                .Attr(DiceView.PlayerPointsRoundAttribute, roundNumber)
+                .Text(points);
+            currentPanel.Find("[" + DiceView.PlayerScoreBoardAttribute + "]").Append(newItem);
+
+            // scroll to element
+            scrollElement.ScrollTop(scrollElement.ScrollTop() + newItem.Position().Top
+                - scrollElement.Height()  + newItem.Height() );
+
             currentPanel.Find("[" + DiceView.PlayerPanelFooterAttribute + "]").Text("Total: " + totalPoints);
         }
 
