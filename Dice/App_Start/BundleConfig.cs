@@ -26,6 +26,7 @@ namespace Dice
 
             bundles.Add(new ScriptBundle("~/bundles/dice").Include(
                 "~/Bridge/output/bridge.js",
+                "~/Bridge/output/newtonsoft.json.js",
                 "~/Bridge/output/Dice.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

@@ -35,10 +35,13 @@
                 }
             });
             var windowHeigth = $(window).height();
-            if (windowHeigth <= 657) //for smaller devices
+            if (windowHeigth <= 620) //for smaller devices
             {
                 $("#" + Dice.Ui.DiceView.ParamCollapsibleId).removeClass('in');
             }
+
+            // Auto load previous game in case of accidental refresh
+            Dice.Manager.Instance.LoadGame();
         });
 
         var UiJs = ({
@@ -60,20 +63,18 @@
     </script>
     <div class="container-fluid">
         <nav class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
-            <a class="navmenu-brand visible-md visible-lg" href="#">@ViewBag.AppName</a>
-            <hr />
+            @*<a class="navmenu-brand visible-md visible-lg" href="#">@ViewBag.AppName</a>
+            <hr />*@
             <h3 data-toggle="collapse" data-target="#dice-game-controls">Partie courante</h3>
             <div class="collapse in" id="dice-game-controls">
                 <a class="btn btn-success btn-block btn-lg" onclick="Dice.Manager.Instance.AddPlayer()" href="#">
                     <span class="glyphicon glyphicon-plus"></span> Ajouter Joueur
                 </a>
-                <a class="btn btn-warning btn-block" onclick="Dice.Manager.Instance.CancelLastMove()" href="#">
-                    <span class="glyphicon glyphicon-backward"></span> Annuler Dernier
-                </a>
                 <br />
                 <a class="btn btn-danger btn-block" onclick="Dice.Manager.Instance.Reset()" href="#">
                     <span class="glyphicon glyphicon-repeat"></span> Remise à zéro
                 </a>
+                <br />
                 <a class="btn btn-default btn-block" onclick="UiJs.FullScreen()" href="#">
                     <span class="glyphicon glyphicon-fullscreen"></span> Plein Écran
                 </a>
@@ -97,10 +98,10 @@
                 <a class="btn btn-info btn-block btn-lg" onclick="Dice.Manager.Instance.NewGame()" href="#">
                     <span class="glyphicon glyphicon-play-circle"></span> Nouvelle partie
                 </a>
-                <br />
+                @*<br />
                 <a class="btn btn-block btn-lg" onclick="Dice.Manager.Instance.LoadGame()" href="#">
                     Restaurer
-                </a>
+                </a>*@
             </div>
             <hr />
         </nav>

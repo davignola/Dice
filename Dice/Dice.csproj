@@ -122,6 +122,7 @@
   <ItemGroup>
     <Content Include="Bridge\output\bridge.js" />
     <Content Include="Bridge\output\dice.js" />
+    <Content Include="Bridge\output\newtonsoft.json.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />

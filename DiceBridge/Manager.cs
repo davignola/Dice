@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Bridge.Html5;
 using Dice.Component;
 using Bridge;
+using Newtonsoft.Json;
+
 
 namespace Dice
 {
@@ -28,8 +30,7 @@ namespace Dice
             internal static readonly Manager instance = new Manager();
         }
 
-        private const string savedGameStateKey = "DiceSaveGameState";
-        private const string savedGamePlayersKey = "DiceSavePlayers";
+        private const string savedGameStateKey = "DiceSaveGameStateV2";
 
         public List<Player> Players = new List<Player>();
         public Player CurrentPlayer;
@@ -46,7 +47,7 @@ namespace Dice
             name = string.IsNullOrWhiteSpace(name) ? "Joueur " + (newIndex + 1) : name;
             var newPlayer = new Player(name, newIndex);
             Players.Add(newPlayer);
-            Ui.AddPlayerContainer(newPlayer);
+            Ui.AddPlayerContainer(newPlayer, Players.Count);
             if (newIndex == 0)
             {
                 this.CurrentPlayer = newPlayer;
@@ -245,34 +246,48 @@ namespace Dice
 
         public void SaveGame()
         {
-            Window.LocalStorage.SetItem(Manager.savedGameStateKey, JSON.Stringify(this, new string[] { "Settings", "RoundCount", "LastPoints", "LastRoundPlayerIndex", "CurrentPlayer" }));
-            Window.LocalStorage.SetItem(Manager.savedGamePlayersKey, JSON.Stringify(this.Players.ToArray()));
+            Window.LocalStorage.SetItem(Manager.savedGameStateKey, JSON.Stringify(this));
         }
 
         public void LoadGame()
         {
-            var oldManager = JSON.Parse<Manager>((string)Window.LocalStorage.GetItem(Manager.savedGameStateKey));
-            var oldPlayers = JSON.ParseAsArray<Player>((string)Window.LocalStorage.GetItem(Manager.savedGamePlayersKey));
+            var oldManager = JsonConvert.DeserializeObject<Manager>((string)Window.LocalStorage.GetItem(Manager.savedGameStateKey));
 
-            this.Players = oldPlayers.ToList();
-            this.Settings = oldManager.Settings;
+            // Key does not exist or is bad
+            if (oldManager == null) { return; }
+
+            this.Players.Clear();
+            // Properly create new objects
+            this.Players.AddRange(oldManager.Players.Select(s => new Player
+            {
+                Points = new List<int>(s.Points),
+                CanAccumulateLast = s.CanAccumulateLast,
+                Index = s.Index,
+                Name = s.Name,
+                StarCount = s.StarCount
+            }));
+            this.Settings = new GameSettings
+            {
+                Cumul = oldManager.Settings.Cumul,
+                Startup = oldManager.Settings.Startup,
+                Target = oldManager.Settings.Target
+            };
             this.RoundCount = oldManager.RoundCount;
             this.LastPoints = oldManager.LastPoints;
             this.LastRoundPlayerIndex = oldManager.LastRoundPlayerIndex;
-            this.CurrentPlayer = oldManager.CurrentPlayer;
+            this.CurrentPlayer = this.Players.Single(sg => sg.Index == oldManager.CurrentPlayer.Index);
 
             // Rebuild the ui
             Ui.ClearPlayerContainer();
-            foreach (var player in this.Players)
+            // iterate a list clone
+            foreach (var player in this.Players.ToList())
             {
-                Ui.AddPlayerContainer(player);
+                Ui.AddPlayerContainer(player, this.Players.Count);
                 //Re-Add points history
-                Enumerable
-                    .Range(0, player.Points.Count)
-                    .Zip(player.Points, (round, point) => new { round, point })
-                    .Aggregate(0, (cur, nxt) =>
-                        { cur += nxt.point; Ui.AddPoint(player.Index, nxt.round, nxt.point, cur); return cur; });
-
+                foreach (var points in player.Points.Select((s, i) => new { s, i }))
+                {
+                    Ui.AddPoint(player.Index, points.i, points.s, points.i == player.Points.Count - 1 ? player.Points.Sum() : 0);
+                }
                 // Restore starz
                 for (var i = 0; i < player.StarCount; i++) { Ui.AddStar(player.Index); }
             }

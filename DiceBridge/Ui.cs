@@ -55,7 +55,7 @@ namespace Dice
         /// Add the ui column player container
         /// </summary>
         /// <param name="playerObject"></param>
-        public static void AddPlayerContainer(Player playerObject)
+        public static void AddPlayerContainer(Player playerObject, int playerCount)
         {
             // Get main container
             var scoreboard = jQuery.Select("#" + DiceView.PlayerContainerId);
@@ -126,7 +126,7 @@ namespace Dice
                 playerRow.Append(new jQuery("<div>").AddClass("clearfix visible-xs-block"));
             }
             // update columns classes
-            Ui.SetColumnClass();
+            Ui.SetColumnClass(playerCount);
         }
 
 
@@ -135,9 +135,8 @@ namespace Dice
             jQuery.Select("[" + DiceView.PlayerColumnAttribute + "=" + playerIndex + "]").Remove();
         }
 
-        public static void SetColumnClass()
+        public static void SetColumnClass(int playerCount)
         {
-            var playerCount = Manager.Instance.Players.Count;
             var containers = jQuery.Select("#" + DiceView.PlayerContainerId).Find("div[" + DiceView.PlayerColumnAttribute + "]");
             var previousXs = Math.Max(DiceView.PreviousColumnSize, DiceView.MinColSizeXs);
             var previousSm = Math.Max(DiceView.PreviousColumnSize, DiceView.MinColSizeSm);
@@ -262,7 +261,7 @@ namespace Dice
             var jQueryEvent = theEvent as jQueryEvent;
             if (jQueryEvent == null) { return; }
             // Set current object
-            DiceView.RenameCurrentPlayer = Manager.Instance.GetPlayerbyIndex(int.Parse(jQueryEvent.Data.ToString()));
+            DiceView.RenameCurrentPlayer = Dice.Manager.Instance.GetPlayerbyIndex(int.Parse(jQueryEvent.Data.ToString()));
             // Init the rename input to the current name
             jQuery.Select("#" + DiceView.RenameInputId).Val(DiceView.RenameCurrentPlayer.Name);
             jQuery.Select("#" + DiceView.RenameId).Modal("show");
