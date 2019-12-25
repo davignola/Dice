@@ -86,12 +86,6 @@
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dice\Dice.csproj">
-      <Project>{D5AE1702-C850-41D5-9958-ABE0E6E36855}</Project>
-      <Name>Dice</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
